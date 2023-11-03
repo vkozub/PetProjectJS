@@ -1,0 +1,16 @@
+{
+  "name": "petprojectjs",
+  "version": "1.0.0",
+  "description": "My Pet project on JS programming language",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "Vsevolod Kozub",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.39.0",
+    "@types/node": "^20.8.10",
+    "dotenv": "16.3.1",
+    "@faker-js/faker": "^8.2.0"
+  }
+}
