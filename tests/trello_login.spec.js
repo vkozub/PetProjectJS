@@ -1,5 +1,5 @@
 const { faker } = require('./support/env.js');
-const { test, expect } = require('./pages/pageFixtures.js');
+const { test, expect } = require('./../pages/pageFixtures.js');
 
 test('log in Trello', async ({ loginHomePage, loginPage, page }) => {
     await page.goto(process.env.UI_ENV);
