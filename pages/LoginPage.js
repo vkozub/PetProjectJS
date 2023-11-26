@@ -1,4 +1,4 @@
-const BasePage = require('./BasePage');
+const BasePage = require('./BasePage.js');
 
 module.exports = class LoginPage extends BasePage {
     get usernameInput() { return $("username"); }
