@@ -1,7 +1,7 @@
-class basePage {
+class BasePage {
     constructor(page) {
         this.page = page;
     }
 }
 
-module.exports = basePage;
+module.exports = BasePage;

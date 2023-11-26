@@ -1,6 +1,6 @@
-const basePage = require('./basePage');
+const BasePage = require('./BasePage');
 
-class loginPage extends basePage {
+class LoginPage extends BasePage {
     constructor(page) {
         super(page);
     }
@@ -10,7 +10,7 @@ class loginPage extends basePage {
 
     putUsername(username) { this.usernameInput.fill(username); }
     putPassword(password) { this.passwordInput.fill(password); }
-    clickContinue() { this.continueButton.click(); }
+    async clickContinue() { await this.continueButton.click(); }
 }
 
-module.exports = { loginPage };
+module.exports = { loginPage: new LoginPage() };
