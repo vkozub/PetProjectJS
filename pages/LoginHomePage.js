@@ -5,5 +5,3 @@ module.exports = class LoginHomePage extends BasePage {
 
     async tapLogIn() { await this.logInButton.click(); }
 }
-
-// module.exports = { LoginHomePage };

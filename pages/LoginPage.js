@@ -9,5 +9,3 @@ module.exports = class LoginPage extends BasePage {
     putPassword(password) { this.passwordInput.fill(password); }
     async tapContinue() { await this.continueButton.click(); }
 }
-
-// module.exports = { LoginPage };
