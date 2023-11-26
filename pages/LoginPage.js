@@ -10,7 +10,7 @@ class LoginPage extends BasePage {
 
     putUsername(username) { this.usernameInput.fill(username); }
     putPassword(password) { this.passwordInput.fill(password); }
-    async clickContinue() { await this.continueButton.click(); }
+    async tapContinue() { await this.continueButton.click(); }
 }
 
 module.exports = { loginPage: new LoginPage() };
