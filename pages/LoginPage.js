@@ -1,8 +1,7 @@
 const BasePage = require('./BasePage');
 
 class LoginPage extends BasePage {
-    constructor(page) {
-        super(page);
+    constructor() {
     }
     get usernameInput() { return $("username"); }
     get passwordInput() { return $("password"); }
@@ -13,4 +12,4 @@ class LoginPage extends BasePage {
     async tapContinue() { await this.continueButton.click(); }
 }
 
-module.exports = { loginPage: new LoginPage() };
+module.exports = LoginPage;
