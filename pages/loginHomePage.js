@@ -3,4 +3,6 @@ class loginHomePage extends basePage {
         super(page);
     }
     get logInButton() { return $('div > a[data-uuid*="login"]'); }
+
+    tapLogIn() { this.logInButton.click(); }
 }
