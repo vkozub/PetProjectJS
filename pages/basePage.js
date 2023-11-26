@@ -3,3 +3,5 @@ class basePage {
         this.page = page;
     }
 }
+
+module.exports = basePage;

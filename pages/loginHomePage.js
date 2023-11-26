@@ -1,3 +1,5 @@
+const basePage = require('./basePage');
+
 class loginHomePage extends basePage {
     constructor(page) {
         super(page);
@@ -6,3 +8,5 @@ class loginHomePage extends basePage {
 
     tapLogIn() { this.logInButton.click(); }
 }
+
+module.exports = { loginHomePage };

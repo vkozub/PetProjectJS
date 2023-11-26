@@ -1,3 +1,5 @@
+const basePage = require('./basePage');
+
 class loginPage extends basePage {
     constructor(page) {
         super(page);
@@ -10,3 +12,5 @@ class loginPage extends basePage {
     putPassword(password) { this.passwordInput.fill(password); }
     clickContinue() { this.continueButton.click(); }
 }
+
+module.exports = { loginPage };
