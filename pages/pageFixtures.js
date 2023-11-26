@@ -1,6 +1,6 @@
 const base = require('@playwright/test');
-const { LoginHomePage } = require('./LoginHomePage');
-const { LoginPage } = require('./LoginPage');
+const LoginHomePage = require('./LoginHomePage.js');
+const LoginPage = require('./LoginPage.js');
 
 exports.test = base.test.extend({
     loginHomePage: async ({ page }, use) => {

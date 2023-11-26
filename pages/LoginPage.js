@@ -1,8 +1,6 @@
 const BasePage = require('./BasePage');
 
-class LoginPage extends BasePage {
-    constructor() {
-    }
+module.exports = class LoginPage extends BasePage {
     get usernameInput() { return $("username"); }
     get passwordInput() { return $("password"); }
     get continueButton() { return $("login-submit"); }
@@ -12,4 +10,4 @@ class LoginPage extends BasePage {
     async tapContinue() { await this.continueButton.click(); }
 }
 
-module.exports = LoginPage;
+// module.exports = { LoginPage };
