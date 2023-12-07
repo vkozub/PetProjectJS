@@ -4,12 +4,12 @@ const LoginPage = require('./LoginPage.js');
 
 exports.test = base.test.extend({
     loginHomePage: async ({ page }, use) => {
-        const loginHomePage = new LoginHomePage();
+        const loginHomePage = new LoginHomePage(page);
         await use(loginHomePage);
     },
 
     loginPage: async ({ page }, use) => {
-        const loginPage = new LoginPage();
+        const loginPage = new LoginPage(page);
         await use(loginPage);
     },
 });

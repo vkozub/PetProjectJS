@@ -2,7 +2,7 @@ const BasePage = require('./BasePage.js');
 
 module.exports = class LoginPage extends BasePage {
     constructor(page) {
-        super();
+        super(page);
     }
     get usernameInput() { return this.page.locator("xpath=//input[@id='username']"); }
     get passwordInput() { return this.page.locator("xpath=//input[@id='password']"); }
