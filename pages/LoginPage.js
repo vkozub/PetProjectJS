@@ -7,8 +7,10 @@ module.exports = class LoginPage extends BasePage {
     get usernameInput() { return this.page.locator("xpath=//input[@id='username']"); }
     get passwordInput() { return this.page.locator("xpath=//input[@id='password']"); }
     get continueButton() { return this.page.getByRole('button', { name: 'Continue'}); }
+    get logInButton() { return this.page.getByRole('button', { name: 'Log in'}); }
 
     async putUsername(username) { await this.usernameInput.fill(username); }
     async putPassword(password) { await this.passwordInput.fill(password); }
     async tapContinue() { await this.continueButton.click(); }
+    async tapLogIn() { await this.logInButton.click(); }
 }
