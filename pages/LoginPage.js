@@ -1,11 +1,14 @@
 const BasePage = require('./BasePage.js');
 
 module.exports = class LoginPage extends BasePage {
-    get usernameInput() { return $("username"); }
-    get passwordInput() { return $("password"); }
-    get continueButton() { return $("login-submit"); }
+    constructor(page) {
+        super();
+    }
+    get usernameInput() { return this.page.locator("xpath=//input[@id='username']"); }
+    get passwordInput() { return this.page.locator("xpath=//input[@id='password']"); }
+    get continueButton() { return this.page.getByRole('button', { name: 'Continue'}); }
 
-    putUsername(username) { this.usernameInput.fill(username); }
-    putPassword(password) { this.passwordInput.fill(password); }
+    async putUsername(username) { await this.usernameInput.fill(username); }
+    async putPassword(password) { await this.passwordInput.fill(password); }
     async tapContinue() { await this.continueButton.click(); }
 }
