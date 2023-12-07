@@ -1,8 +1,8 @@
 const { faker } = require('./support/env.js');
 const { test, expect } = require('./../pages/pageFixtures.js');
 
-test('log in Trello', async ({ loginHomePage, loginPage, page }) => {
-    await page.goto(process.env.UI_ENV);
+test('Verify that member can do login', async ({ loginHomePage, loginPage, page }) => {
+    await loginHomePage.visit();
     await loginHomePage.tapLogIn();
     await loginPage.putUsername(process.env.TRELLO_USERNAME);
     await loginPage.tapContinue();
@@ -10,3 +10,4 @@ test('log in Trello', async ({ loginHomePage, loginPage, page }) => {
     await loginPage.tapLogIn();
     await expect(page).toHaveTitle(/Trello/);
   });
+  
