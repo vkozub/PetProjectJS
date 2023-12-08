@@ -1,5 +1,5 @@
 const { faker } = require('./support/env.js');
-const { test, expect } = require('./../pages/pageFixtures.js');
+const { test } = require('./../pages/pageFixtures.js');
 
 test('Verify that member can do login', async ({ loginHomePage, loginPage, userBoardsPage }) => {
     await loginHomePage.visit();
