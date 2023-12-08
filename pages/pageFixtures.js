@@ -1,6 +1,7 @@
 const base = require('@playwright/test');
 const LoginHomePage = require('./LoginHomePage.js');
 const LoginPage = require('./LoginPage.js');
+const UserBoardsPage = require('./UserBoardsPage.js');
 
 exports.test = base.test.extend({
     loginHomePage: async ({ page }, use) => {
@@ -11,6 +12,11 @@ exports.test = base.test.extend({
     loginPage: async ({ page }, use) => {
         const loginPage = new LoginPage(page);
         await use(loginPage);
+    },
+
+    userBoardsPage: async ({ page }, use) => {
+        const userBoardsPage = new UserBoardsPage(page);
+        await use(userBoardsPage);
     },
 });
 
