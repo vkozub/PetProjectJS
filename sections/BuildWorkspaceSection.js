@@ -5,9 +5,9 @@ module.exports = class BuildWorkspaceSection extends BaseSection {
         super(page);
     }
 
-    get workspaceNameInput() { return this.page.getByTestId("header-create-team-name-input"); }
+    get workspaceNameInput() { return this.page.getByLabel("Workspace name"); }
     get workspaceTypeDropdown() { return this.page.getByTestId("header-create-team-type-input"); }
-    get continueButton() { return this.page.getByTestId('header-create-team-submit-button'); }
+    get continueButton() { return this.page.getByRole('button', { name: /continue/i, disabled: false }); }
 
     async putWorkspaceName(name) { await this.workspaceNameInput.fill(name); }
     async selectWorkspaceType(type) { 
