@@ -17,6 +17,7 @@ test.describe('Trello Create Workspace', () => {
     await userBoardsPage.buildWorkspaceSection.putWorkspaceName(workspaceName);
     await userBoardsPage.buildWorkspaceSection.selectWorkspaceType('Engineering-IT');
     await userBoardsPage.buildWorkspaceSection.tapContinue();
+    await userBoardsPage.verifyHomeTeamWorkspaceNameVisible(workspaceName);
   });
 
   test.afterEach(async ({ context }) => {
