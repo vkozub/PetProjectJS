@@ -11,7 +11,7 @@ test.describe('Trello Create Workspace', () => {
     await loginPage.tapLogIn();
   });
 
-  test('Verify that member can create a new workspace via UI', async ({ userBoardsPage }) => {
+  test('Verify that member can create a new workspace via UI using "Create a Workspace" button', async ({ userBoardsPage }) => {
     await userBoardsPage.verifyNavBarVisible();
   });
 
