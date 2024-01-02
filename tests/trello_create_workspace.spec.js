@@ -12,7 +12,11 @@ test.describe('Trello Create Workspace', () => {
   });
 
   test('Verify that member can create a new workspace via UI using "Create a Workspace" button', async ({ userBoardsPage }) => {
-    await userBoardsPage.verifyNavBarVisible();
+    await userBoardsPage.tapHomeNavCreateWorkspace();
+    const workspaceName = faker.string.alphanumeric(10);
+    await userBoardsPage.buildWorkspaceSection.putWorkspaceName(workspaceName);
+    await userBoardsPage.buildWorkspaceSection.selectWorkspaceType('Engineering-IT');
+    await userBoardsPage.buildWorkspaceSection.tapContinue();
   });
 
   test.afterEach(async ({ context }) => {
