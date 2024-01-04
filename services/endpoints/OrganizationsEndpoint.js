@@ -7,7 +7,7 @@ module.exports = class OrganizationsEndpoint extends BaseClientAPI {
         super();
     }
 
-    retrieveAllOrganizations() {
-        return this.get(GET_ALL_ORGANIZATIONS_ENDPOINT).data;
+    retrieveAllOrganizations(memberId) {
+        return this.get(this.formatPath(GET_ALL_ORGANIZATIONS_ENDPOINT, 'id', memberId)).data;
     }
 }

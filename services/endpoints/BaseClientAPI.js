@@ -9,14 +9,19 @@ module.exports = class BaseClientAPI {
     }
 
     async get(endpoint) {
-        const url = this.URL + endpoint;
         const config = {
+            baseURL: this.URL,
             params: {
                 key: this.KEY,
                 token: this.TOKEN
             },
             timeout: 2000
         };
-        return await axios.get(url, config); 
+        return await axios.get(endpoint, config); 
+    }
+
+    formatPath(endpoint, pathVarName, pathVar) {
+        const pattern = new RegExp(`^:${pathVarName}$`);
+        return endpoint.replace(pattern, pathVar);
     }
 }
