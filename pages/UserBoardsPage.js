@@ -17,4 +17,11 @@ module.exports = class UserBoardsPage extends BasePage {
     async verifyNavBarVisible() { await this.expect(this.navBar).toBeVisible(); } 
     async verifyYourWorkspacesLabelVisible() { await this.expect(this.yourWorkspacesLabel).toBeVisible(); }
     async verifyHomeTeamWorkspaceNameVisible(name) { await this.expect(this.homeTeamWorkspaceNames).toContainText(name); } 
+
+    async verifyWorkspaceNameData(orgs, workspaceExpected) { 
+        const pattern = new RegExp(`^${workspaceExpected}$`);
+        const workspaceActual = orgs.find(el => pattern.test(el.displayName));
+        this.expect(workspaceActual).toBeTruthy();
+        this.expect(workspaceActual.displayName).toContain(workspaceExpected);
+    }
 }

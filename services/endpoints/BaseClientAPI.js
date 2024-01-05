@@ -1,4 +1,4 @@
-const { axios } = require('./support/env.js');
+const { axios } = require('./../../tests/support/env.js');
 
 module.exports = class BaseClientAPI {
     constructor() {
@@ -16,12 +16,18 @@ module.exports = class BaseClientAPI {
                 token: this.TOKEN
             },
             timeout: 2000
+            // headers: {
+            //     'Host': 'api.trello.com',
+            //     'Accept': '*/*',
+            //     'Accept-Encoding': 'gzip, deflate, br',
+            //     'Connection': 'keep-alive'
+            // }
         };
-        return await axios.get(endpoint, config); 
+        return axios.get(endpoint, config); 
     }
 
     formatPath(endpoint, pathVarName, pathVar) {
-        const pattern = new RegExp(`^:${pathVarName}$`);
+        const pattern = new RegExp(`:${pathVarName}`);
         return endpoint.replace(pattern, pathVar);
     }
 }

@@ -1,5 +1,6 @@
 const { faker } = require('./support/env.js');
 const { test } = require('./../pages/pageFixtures.js');
+const OrganizationsEndpoint = require('./../services/endpoints/OrganizationsEndpoint');
 
 test.describe('Trello Create Workspace', () => {
   test.beforeEach(async ({ loginHomePage, loginPage }) => {
@@ -18,6 +19,10 @@ test.describe('Trello Create Workspace', () => {
     await userBoardsPage.buildWorkspaceSection.selectWorkspaceType('Engineering-IT');
     await userBoardsPage.buildWorkspaceSection.tapContinue();
     await userBoardsPage.verifyHomeTeamWorkspaceNameVisible(workspaceName);
+
+    let orgEnd = new OrganizationsEndpoint();
+    let orgs = await orgEnd.retrieveAllOrganizations(orgEnd.MEMBER_ID);
+    await userBoardsPage.verifyWorkspaceNameData(orgs, workspaceName);
   });
 
   test.afterEach(async ({ context }) => {

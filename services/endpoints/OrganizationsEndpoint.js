@@ -1,4 +1,4 @@
-const { BaseClientAPI } = require('./BaseClientAPI.js');
+const BaseClientAPI = require('./BaseClientAPI.js');
 
 module.exports = class OrganizationsEndpoint extends BaseClientAPI {
     GET_ALL_ORGANIZATIONS_ENDPOINT = 'members/:id/organizations';
@@ -7,7 +7,8 @@ module.exports = class OrganizationsEndpoint extends BaseClientAPI {
         super();
     }
 
-    retrieveAllOrganizations(memberId) {
-        return this.get(this.formatPath(GET_ALL_ORGANIZATIONS_ENDPOINT, 'id', memberId)).data;
+    async retrieveAllOrganizations(memberId) {
+        const response = await this.get(this.formatPath(this.GET_ALL_ORGANIZATIONS_ENDPOINT, 'id', memberId));
+        return response.data;
     }
 }

@@ -5,5 +5,6 @@ process.env.UI_ENV = `https://${process.env.NAMESPACE}.${process.env.CLUSTER}/`;
 console.log(process.env);
 const { test, expect } = require('@playwright/test');
 const { faker } = require('@faker-js/faker');
-const { axios } = require('axios');
+const axios = require('axios');
+// const { expect as jestExpect } = require('@jest/globals');
 module.exports = { test, expect, faker, axios };
