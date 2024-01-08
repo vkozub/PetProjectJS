@@ -25,7 +25,9 @@ test.describe('Trello Create Workspace', () => {
     await userBoardsPage.verifyWorkspaceNameData(orgs, workspaceName);
   });
 
-  test.afterEach(async ({ context }) => {
+  test.afterEach(async ({ context, userBoardsPage }) => {
     await context.close();
+    const organization = await userBoardsPage.retrieveOrganization(orgs, workspaceName);
+    await orgEnd.deleteOrganization(organization.id);
   });
 });

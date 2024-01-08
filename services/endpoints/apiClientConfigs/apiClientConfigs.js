@@ -4,7 +4,10 @@ const defaultConfig = {
         key: process.env.TRELLO_API_KEY,
         token: process.env.TRELLO_API_TOKEN
     },
-    timeout: 2000
+    timeout: 2000,
+    headers: {
+        'Accept': 'application/json'
+    }
 };
 
 const postConfig = {
@@ -15,9 +18,17 @@ const postConfig = {
     },
     timeout: 2000,
     headers: {
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Content-Type': 'application/json'
+        'Accept': 'application/json'
     }
 };
 
-module.exports = { defaultConfig, postConfig };
+const deleteConfig = {
+    baseURL: process.env.TRELLO_API_URL,
+    params: {
+        key: process.env.TRELLO_API_KEY,
+        token: process.env.TRELLO_API_TOKEN
+    },
+    timeout: 2000
+};
+
+module.exports = { defaultConfig, postConfig, deleteConfig };

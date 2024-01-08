@@ -19,8 +19,7 @@ module.exports = class UserBoardsPage extends BasePage {
     async verifyHomeTeamWorkspaceNameVisible(name) { await this.expect(this.homeTeamWorkspaceNames).toContainText(name); } 
 
     async verifyWorkspaceNameData(orgs, workspaceExpected) { 
-        const pattern = new RegExp(`^${workspaceExpected}$`);
-        const workspaceActual = orgs.find(el => pattern.test(el.displayName));
+        const workspaceActual = this.retrieveOrganization(orgs, workspaceExpected);
         this.expect(workspaceActual).toBeTruthy();
         this.expect(workspaceActual.displayName).toContain(workspaceExpected);
     }
