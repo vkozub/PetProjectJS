@@ -3,6 +3,10 @@ const { test } = require('./../pages/pageFixtures.js');
 const OrganizationsEndpoint = require('./../services/endpoints/OrganizationsEndpoint');
 
 test.describe('Trello Create Workspace', () => {
+  const workspaceName = faker.string.alphanumeric(10);
+  const orgEnd = new OrganizationsEndpoint();
+  let orgs;
+
   test.beforeEach(async ({ loginHomePage, loginPage }) => {
     await loginHomePage.visit();
     await loginHomePage.tapLogIn();
@@ -14,19 +18,17 @@ test.describe('Trello Create Workspace', () => {
 
   test('Verify that member can create a new workspace via UI using "Create a Workspace" button', async ({ userBoardsPage }) => {
     await userBoardsPage.tapHomeNavCreateWorkspace();
-    const workspaceName = faker.string.alphanumeric(10);
     await userBoardsPage.buildWorkspaceSection.putWorkspaceName(workspaceName);
     await userBoardsPage.buildWorkspaceSection.selectWorkspaceType('Engineering-IT');
     await userBoardsPage.buildWorkspaceSection.tapContinue();
     await userBoardsPage.verifyHomeTeamWorkspaceNameVisible(workspaceName);
-
-    let orgEnd = new OrganizationsEndpoint();
-    let orgs = await orgEnd.retrieveAllOrganizations(orgEnd.MEMBER_ID);
+    orgs = await orgEnd.retrieveAllOrganizations(orgEnd.MEMBER_ID);
     await userBoardsPage.verifyWorkspaceNameData(orgs, workspaceName);
   });
 
   test.afterEach(async ({ context, userBoardsPage }) => {
     await context.close();
+    // remove the organization from the DB via API
     const organization = await userBoardsPage.retrieveOrganization(orgs, workspaceName);
     await orgEnd.deleteOrganization(organization.id);
   });
