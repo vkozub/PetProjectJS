@@ -20,5 +20,3 @@ exports.test = base.test.extend({
         await use(userBoardsPage);
     },
 });
-
-exports.expect = expect;

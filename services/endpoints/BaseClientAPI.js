@@ -1,4 +1,4 @@
-const { axios } = require('./../../tests/support/env.js');
+const axios = require('axios');
 const { defaultConfig, postConfig, deleteConfig } = require('./apiClientConfigs/apiClientConfigs.js');
 
 module.exports = class BaseClientAPI {

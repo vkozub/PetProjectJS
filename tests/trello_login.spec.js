@@ -1,4 +1,3 @@
-const { faker } = require('./support/env.js');
 const { test } = require('./../pages/pageFixtures.js');
 
 test.describe('trello login', () => {
