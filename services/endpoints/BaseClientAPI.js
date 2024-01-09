@@ -1,10 +1,10 @@
 const axios = require('axios');
-const { defaultConfig, postConfig, deleteConfig } = require('./apiClientConfigs/apiClientConfigs.js');
+const { getConfig, postConfig, deleteConfig } = require('./apiClientConfigs/apiClientConfigs.js');
 
 module.exports = class BaseClientAPI {
     constructor() {
         this.MEMBER_ID = process.env.TRELLO_MEMBER_ID;
-        this.GET_CONFIG = defaultConfig;
+        this.GET_CONFIG = getConfig;
         this.POST_CONFIG = postConfig;
         this.DELETE_CONFIG = deleteConfig;
     }

@@ -4,13 +4,8 @@ test.describe('Trello Create Workspace', () => {
   const workspaceName = faker.string.alphanumeric(10);
   let orgs;
 
-  test.beforeEach(async ({ loginHomePage, loginPage }) => {
-    await loginHomePage.visit();
-    await loginHomePage.tapLogIn();
-    await loginPage.putUsername(process.env.TRELLO_USERNAME);
-    await loginPage.tapContinue();
-    await loginPage.putPassword(process.env.TRELLO_PASSWORD);
-    await loginPage.tapLogIn();
+  test.beforeEach(async ({ uiTrelloLoginSteps }) => {
+     await uiTrelloLoginSteps;
   });
 
   test('Verify that member can create a new workspace via UI using "Create a Workspace" button', async ({ userBoardsPage, organizationsEndpoint }) => {
@@ -23,10 +18,8 @@ test.describe('Trello Create Workspace', () => {
     await userBoardsPage.verifyWorkspaceNameData(orgs, workspaceName);
   });
 
-  test.afterEach(async ({ context, userBoardsPage, organizationsEndpoint }) => {
+  test.afterEach(async ({ context, removeOrganizationStep }) => {
     await context.close();
-    // remove the organization from the BE via API
-    const organization = await userBoardsPage.retrieveOrganization(orgs, workspaceName);
-    await organizationsEndpoint.deleteOrganization(organization.id);
+    await removeOrganizationStep(orgs, workspaceName);
   });
 });
