@@ -1,5 +1,6 @@
 const BasePage = require('./BasePage.js');
 const BuildWorkspaceSection = require('../sections/BuildWorkspaceSection.js');
+const BuildBoardSection = require('../sections/BuildBoardSection.js');
 
 module.exports = class UserBoardsPage extends BasePage {
     constructor(page, expect) {
@@ -11,8 +12,11 @@ module.exports = class UserBoardsPage extends BasePage {
     get homeNavCreateWorkspaceButton() { return this.page.getByTestId('home-navigation-create-team-button'); }
     get buildWorkspaceSection() { return new BuildWorkspaceSection(this.page); }
     get homeTeamWorkspaceNames() { return this.page.getByTestId('home-team-tab-name'); }
+    get createButton() { return this.page.getByTestId('header-create-menu-button'); }
+    get buildBoardSection() { return new BuildBoardSection(this.page); }
 
     async tapHomeNavCreateWorkspace() { await this.homeNavCreateWorkspaceButton.click(); }
+    async tapCreate() { await this.createButton.click(); }
 
     async verifyNavBarVisible() { await this.expect(this.navBar).toBeVisible(); } 
     async verifyYourWorkspacesLabelVisible() { await this.expect(this.yourWorkspacesLabel).toBeVisible(); }
