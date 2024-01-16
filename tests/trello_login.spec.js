@@ -1,6 +1,6 @@
-const { test } = require('./../pages/pageFixtures.js');
+const { test } = require('./../support/env.js');
 
-test.describe('trello login', () => {
+test.describe('Trello login', () => {
   test.beforeEach(async ({ loginHomePage, loginPage }) => {
     await loginHomePage.visit();
     await loginHomePage.tapLogIn();

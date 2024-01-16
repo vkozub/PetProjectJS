@@ -17,5 +17,13 @@ exports.test = base.test.extend({
             const organization = await userBoardsPage.retrieveOrganization(organizations, workspaceName);
             await organizationsEndpoint.deleteOrganization(organization.id);
         });
+    },
+
+    // remove the board from the BE via API
+    removeBoardStep: async ({ boardPage, boardsEndpoint }, use) => {
+        await use(async (boards, boardName) => {
+            const board = await boardPage.retrieveBoard(boards, boardName);
+            await boardsEndpoint.deleteBoard(board.id);
+        });
     }
 });
