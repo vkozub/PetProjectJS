@@ -1,6 +1,6 @@
 
 const defaultConfig = {
-    baseURL: process.env.TRELLO_API_URL,
+    baseURL: 'https://api.trello.com/1/',
     params: {
         key: process.env.TRELLO_API_KEY,
         token: process.env.TRELLO_API_TOKEN

@@ -1,6 +1,5 @@
 require('dotenv/config')
 
-process.env.UI_ENV = `https://${process.env.NAMESPACE}.${process.env.CLUSTER}/`;
 console.log(process.env);
 const { mergeTests } = require('@playwright/test');
 const { test: endpointTest } = require('./../services/endpoints/endpointFixtures.js');

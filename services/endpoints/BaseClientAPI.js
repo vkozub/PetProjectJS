@@ -3,7 +3,7 @@ const { getConfig, postConfig, deleteConfig } = require('./apiClientConfigs/apiC
 
 module.exports = class BaseClientAPI {
     constructor() {
-        this.MEMBER_ID = process.env.TRELLO_MEMBER_ID;
+        this.MEMBER_ID = '624850f1be038a1cc2d10f31';
         this.GET_CONFIG = getConfig;
         this.POST_CONFIG = postConfig;
         this.DELETE_CONFIG = deleteConfig;
