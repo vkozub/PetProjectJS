@@ -5,7 +5,10 @@ const defaultConfig = {
         key: process.env.TRELLO_API_KEY,
         token: process.env.TRELLO_API_TOKEN
     },
-    timeout: 2000
+    timeout: 2000,
+    validateStatus: function (status) {
+        return status < 500;
+    },
 };
 
 const getConfig = Object.assign({}, defaultConfig, { headers: { 'Accept': 'application/json' } });
