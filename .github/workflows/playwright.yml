@@ -8,6 +8,11 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    env:
+      TRELLO_USERNAME:  ${{ secrets.USERNAME }}
+      TRELLO_PASSWORD:  ${{ secrets.PASSWORD }}
+      TRELLO_API_KEY:   ${{ secrets.API_KEY }}
+      TRELLO_API_TOKEN: ${{ secrets.API_TOKEN }}
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
@@ -18,12 +23,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: npx playwright test tests/example.spec.js
-      env:
-        TRELLO_USERNAME:  ${{secrets.TRELLO_USERNAME}}
-        TRELLO_PASSWORD:  ${{secrets.TRELLO_PASSWORD}}
-        TRELLO_API_KEY:   ${{secrets.TRELLO_API_KEY}}
-        TRELLO_API_TOKEN: ${{secrets.TRELLO_API_TOKEN}}
+      run: npx playwright test tests/trello_login.spec.js
     - uses: actions/upload-artifact@v3
       if: always()
       with:

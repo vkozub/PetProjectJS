@@ -1,4 +1,4 @@
-require('dotenv/config')
+if (!process.env.CI) { require('dotenv/config') };
 
 console.log(process.env);
 const { mergeTests } = require('@playwright/test');
