@@ -21,6 +21,25 @@ module.exports = class BaseClientAPI {
         return responsePromise;
     }
 
+    async post(endpoint, payload, status = 201) {
+        const config = JSON.parse(JSON.stringify(this.POST_CONFIG));
+        Object.assign(config, { data: payload });
+        const responsePromise = axios.post(endpoint, config); 
+        this.validateStatusCode(responsePromise, status);
+        return responsePromise;
+    }
+
+    async postWithParams(endpoint, payload, status = 201) {
+        // const config = JSON.parse(JSON.stringify(this.POST_CONFIG));
+        const config = structuredClone(this.POST_CONFIG)
+        for (let [key, value] of Object.entries(payload)) {
+            config.params[key] = value;
+        }
+        const responsePromise = axios.post(endpoint, config); 
+        this.validateStatusCode(responsePromise, status);
+        return responsePromise;
+    }
+
     formatPath(endpoint, pathVarName, pathVar) {
         const pattern = new RegExp(`:${pathVarName}`);
         return endpoint.replace(pattern, pathVar);

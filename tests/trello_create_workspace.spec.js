@@ -1,4 +1,5 @@
 const { faker, test } = require('./../support/env.js');
+const { orgPayload } = require('./../services/payloadFactories/OrganizationPayload.js');
 
 test.describe('Trello Create Workspace', () => {
   test.use({ workspaceName: faker.string.alphanumeric(10) });
@@ -19,8 +20,14 @@ test.describe('Trello Create Workspace', () => {
     await userBoardsPage.verifyWorkspaceNameData(orgs, workspaceName);
   });
 
+  test('Verify that member can create a new workspace via BE', async ({ userBoardsPage, organizationsEndpoint, page }) => {
+    await organizationsEndpoint.createOrganization(orgPayload);
+    await page.reload();
+    await userBoardsPage.verifyHomeTeamWorkspaceNameVisible(orgPayload.displayName);
+  });
+
   test.afterEach(async ({ context, removeOrganizationStep, workspaceName }) => {
     await context.close();
-    await removeOrganizationStep(orgs, workspaceName);
+    await removeOrganizationStep(orgs, workspaceName, orgPayload.id);
   });
 });
