@@ -1,18 +1,28 @@
 
 const defaultConfig = {
     baseURL: 'https://api.trello.com/1/',
+    timeout: 2000
+};
+
+const paramsConfig = {
     params: {
         key: process.env.TRELLO_API_KEY,
         token: process.env.TRELLO_API_TOKEN
-    },
-    timeout: 2000,
-    validateStatus: function (status) {
-        return status < 500;
-    },
+    }
 };
 
-const getConfig = Object.assign({}, defaultConfig, { headers: { 'Accept': 'application/json' } });
-const postConfig = Object.assign({}, defaultConfig, { headers: { 'Accept': 'application/json' } });
-const deleteConfig = Object.assign({}, defaultConfig );
+const validateConfig = {
+    validateStatus: function (status) {
+        return status < 500;
+    }
+};
 
-module.exports = { getConfig, postConfig, deleteConfig };
+const headersConfig = {
+    headers: { 'Accept': 'application/json' }
+};
+
+const getConfig = Object.assign({}, defaultConfig, paramsConfig, validateConfig, headersConfig);
+const postConfig = Object.assign({}, defaultConfig, paramsConfig, headersConfig);
+const deleteConfig = Object.assign({}, defaultConfig, paramsConfig, validateConfig);
+
+module.exports = { getConfig, postConfig, deleteConfig, validateConfig };

@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { getConfig, postConfig, deleteConfig } = require('./apiClientConfigs/apiClientConfigs.js');
+const { getConfig, postConfig, deleteConfig, validateConfig } = require('./apiClientConfigs/apiClientConfigs.js');
 
 module.exports = class BaseClientAPI {
     constructor() {
@@ -7,6 +7,7 @@ module.exports = class BaseClientAPI {
         this.GET_CONFIG = getConfig;
         this.POST_CONFIG = postConfig;
         this.DELETE_CONFIG = deleteConfig;
+        this.validateConfig = validateConfig;
     }
 
     async get(endpoint, status = 200) {
@@ -22,20 +23,19 @@ module.exports = class BaseClientAPI {
     }
 
     async post(endpoint, payload, status = 201) {
-        const config = JSON.parse(JSON.stringify(this.POST_CONFIG));
-        Object.assign(config, { data: payload });
-        const responsePromise = axios.post(endpoint, config); 
+        const config = structuredClone(this.POST_CONFIG);
+        const responsePromise = axios.post(endpoint, payload, config); 
         this.validateStatusCode(responsePromise, status);
         return responsePromise;
     }
 
     async postWithParams(endpoint, payload, status = 201) {
-        // const config = JSON.parse(JSON.stringify(this.POST_CONFIG));
-        const config = structuredClone(this.POST_CONFIG)
+        const config = structuredClone(this.POST_CONFIG);
+        Object.assign(config, this.validateConfig);
         for (let [key, value] of Object.entries(payload)) {
             config.params[key] = value;
         }
-        const responsePromise = axios.post(endpoint, config); 
+        const responsePromise = axios.post(endpoint, null, config); 
         this.validateStatusCode(responsePromise, status);
         return responsePromise;
     }

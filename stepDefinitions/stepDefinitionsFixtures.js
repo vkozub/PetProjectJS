@@ -13,7 +13,7 @@ exports.test = base.test.extend({
 
     // remove the organization from the BE via API
     removeOrganizationStep: async ({ userBoardsPage, organizationsEndpoint }, use) => {
-        await use(async (organizations, workspaceName, id = null) => {
+        await use(async (organizations, workspaceName, id = undefined) => {
             if (id) {
                 await organizationsEndpoint.deleteOrganization(id);
             } else {

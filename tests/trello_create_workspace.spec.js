@@ -3,7 +3,7 @@ const { orgPayload } = require('./../services/payloadFactories/OrganizationPaylo
 
 test.describe('Trello Create Workspace', () => {
   test.use({ workspaceName: faker.string.alphanumeric(10) });
-  let orgs;
+  let orgs, org;
 
   test.beforeEach(async ({ uiTrelloLoginSteps }, testInfo) => {
     console.log(`Running ${testInfo.title}`);
@@ -20,14 +20,14 @@ test.describe('Trello Create Workspace', () => {
     await userBoardsPage.verifyWorkspaceNameData(orgs, workspaceName);
   });
 
-  test('Verify that member can create a new workspace via BE', async ({ userBoardsPage, organizationsEndpoint, page }) => {
-    await organizationsEndpoint.createOrganization(orgPayload);
-    await page.reload();
-    await userBoardsPage.verifyHomeTeamWorkspaceNameVisible(orgPayload.displayName);
+  test('Verify that member can create a new workspace via BE', async ({ userBoardsPage, organizationsEndpoint }) => {
+    org = orgPayload();
+    await organizationsEndpoint.createOrganization(org);
+    await userBoardsPage.verifyHomeTeamWorkspaceNameVisible(org?.displayName);
   });
 
   test.afterEach(async ({ context, removeOrganizationStep, workspaceName }) => {
     await context.close();
-    await removeOrganizationStep(orgs, workspaceName, orgPayload.id);
+    await removeOrganizationStep(orgs, workspaceName, org?.id);
   });
 });

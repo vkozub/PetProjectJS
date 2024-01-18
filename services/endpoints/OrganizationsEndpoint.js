@@ -23,7 +23,7 @@ module.exports = class OrganizationsEndpoint extends BaseClientAPI {
     async createOrganization(payload) {
         const response = await this.postWithParams(this.CREATE_ORGANIZATION_ENDPOINT, payload, 200);
         console.log(`Response code of creating of organization with name:${payload.displayName} is ${response.status}`);
-        Object.assign(payload, response.data);
+        payload.id = response.data.id;
         return payload;
     }
 }
