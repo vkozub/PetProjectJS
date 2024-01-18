@@ -1,8 +1,14 @@
 const { faker, test } = require('./../support/env.js');
+const { boardPayload } = require('./../services/payloadFactories/BoardPayload.js');
 
 test.describe('Trello Create a Board', () => {
   test.use({ boardName: 'board' + faker.string.alphanumeric(6) });
-  let boards;
+  let boards, board, member, workspaceName;
+
+  test.beforeAll(async ({ membersEndpoint }) => {
+    member = await membersEndpoint.retrieveMember();
+    workspaceName = member.fullName + "'s workspace";
+  });
 
   test.beforeEach(async ({ uiTrelloLoginSteps }, testInfo) => {
     console.log(`Running ${testInfo.title}`);
@@ -21,14 +27,18 @@ test.describe('Trello Create a Board', () => {
     await boardPage.verifyBoardNameData(boards, boardName);
   });
 
-  test.afterEach(async ({ context, removeBoardStep, boardName, organizationsEndpoint, removeOrganizationStep, membersEndpoint }) => {
+  test('Verify that member can create a new board via BE without having any workspace', async ({ userBoardsPage, boardsEndpoint }) => {
+    board = boardPayload();
+    await boardsEndpoint.createBoard(board);
+    await userBoardsPage.verifyHomeTeamBoardNameVisible(board.name);
+  });
+
+  test.afterEach(async ({ context, removeBoardStep, boardName, organizationsEndpoint, removeOrganizationStep }) => {
     await context.close();
     // remove the board
-    await removeBoardStep(boards, boardName);
+    await removeBoardStep(boards, boardName, board?.id);
     // remove the organization
     let orgs = await organizationsEndpoint.retrieveAllOrganizations(organizationsEndpoint.MEMBER_ID);
-    let member = await membersEndpoint.retrieveMember();
-    let workspaceName = member.fullName + "'s workspace";
     await removeOrganizationStep(orgs, workspaceName);
   });
 });

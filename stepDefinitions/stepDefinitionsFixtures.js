@@ -18,16 +18,20 @@ exports.test = base.test.extend({
                 await organizationsEndpoint.deleteOrganization(id);
             } else {
                 const organization = await userBoardsPage.retrieveOrganization(organizations, workspaceName);
-                await organizationsEndpoint.deleteOrganization(organization.id);
+                await organizationsEndpoint.deleteOrganization(organization?.id);
             };
         });
     },
 
     // remove the board from the BE via API
     removeBoardStep: async ({ boardPage, boardsEndpoint }, use) => {
-        await use(async (boards, boardName) => {
+        await use(async (boards, boardName, id = undefined) => {
+            if (id) {
+                await boardsEndpoint.deleteBoard(id);
+            } else {
             const board = await boardPage.retrieveBoard(boards, boardName);
-            await boardsEndpoint.deleteBoard(board.id);
+            await boardsEndpoint.deleteBoard(board?.id);
+            };
         });
     }
 });

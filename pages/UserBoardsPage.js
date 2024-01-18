@@ -14,6 +14,7 @@ module.exports = class UserBoardsPage extends BasePage {
     get homeTeamWorkspaceNames() { return this.page.getByTestId('home-team-tab-name'); }
     get createButton() { return this.page.getByTestId('header-create-menu-button'); }
     get buildBoardSection() { return new BuildBoardSection(this.page); }
+    get boardsList() { return this.page.locator("xpath=//ul[@class='boards-page-board-section-list']/li"); }
 
     async tapHomeNavCreateWorkspace() { await this.homeNavCreateWorkspaceButton.click(); }
     async tapCreate() { await this.createButton.click(); }
@@ -21,6 +22,7 @@ module.exports = class UserBoardsPage extends BasePage {
     async verifyNavBarVisible() { await this.expect(this.navBar).toBeVisible(); } 
     async verifyYourWorkspacesLabelVisible() { await this.expect(this.yourWorkspacesLabel).toBeVisible(); }
     async verifyHomeTeamWorkspaceNameVisible(name) { await this.expect(this.homeTeamWorkspaceNames).toContainText(name); } 
+    async verifyHomeTeamBoardNameVisible(name) { await this.expect(this.boardsList.filter({ hasText: name })).toHaveText(name); } 
 
     async verifyWorkspaceNameData(orgs, workspaceExpected) { 
         const workspaceActual = this.retrieveOrganization(orgs, workspaceExpected);
