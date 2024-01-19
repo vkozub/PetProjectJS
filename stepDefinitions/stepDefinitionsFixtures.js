@@ -33,5 +33,13 @@ exports.test = base.test.extend({
             await boardsEndpoint.deleteBoard(board?.id);
             };
         });
-    }
+    },
+
+    // get the member account information
+    memberInfo: async ({ membersEndpoint }, use) => {
+        const member = await membersEndpoint.searchMember();
+        let workspaceName = member.fullName + "'s workspace";
+        member.defaultWorkspace = workspaceName;
+        await use(member);
+    },
 });
