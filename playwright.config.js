@@ -1,11 +1,7 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config();
+if (!process.env.CI) { require('dotenv/config') };
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -37,8 +33,13 @@ module.exports = defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
+      name: 'setup',
+      testMatch: 'tests/setup.js',
+    },
+    {
+      name: 'Trello Chromium Tests',
       use: { ...devices['Desktop Chrome'] },
+      dependencies: ['setup'],
     },
 
     // {

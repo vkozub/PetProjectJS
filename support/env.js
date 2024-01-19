@@ -1,6 +1,4 @@
-if (!process.env.CI) { require('dotenv/config') };
-
-console.log(process.env);
+// console.log(process.env);
 const { mergeTests } = require('@playwright/test');
 const { test: endpointTest } = require('./../services/endpoints/endpointFixtures.js');
 const { test: pageTest } = require('./../pages/pageFixtures.js');

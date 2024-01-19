@@ -11,7 +11,16 @@ module.exports = class BaseClientAPI {
     }
 
     async get(endpoint, status = 200) {
-        const responsePromise = axios.get(endpoint, this.GET_CONFIG);
+        const config = this.cloneConfig(this.GET_CONFIG);
+        const responsePromise = axios.get(endpoint, config);
+        this.validateStatusCode(responsePromise, status);
+        return responsePromise;
+    }
+
+    async getWithParams(endpoint, query, status = 200) {
+        const config = this.cloneConfig(this.GET_CONFIG);
+        config.params['query'] = query;
+        const responsePromise = axios.get(endpoint, config);
         this.validateStatusCode(responsePromise, status);
         return responsePromise;
     }
@@ -23,15 +32,14 @@ module.exports = class BaseClientAPI {
     }
 
     async post(endpoint, payload, status = 201) {
-        const config = structuredClone(this.POST_CONFIG);
+        const config = this.cloneConfig(this.POST_CONFIG);
         const responsePromise = axios.post(endpoint, payload, config); 
         this.validateStatusCode(responsePromise, status);
         return responsePromise;
     }
 
     async postWithParams(endpoint, payload, status = 201) {
-        const config = structuredClone(this.POST_CONFIG);
-        Object.assign(config, this.validateConfig);
+        const config = this.cloneConfig(this.POST_CONFIG);
         for (let [key, value] of Object.entries(payload)) {
             config.params[key] = value;
         }
@@ -52,5 +60,10 @@ module.exports = class BaseClientAPI {
             console.log(response.headers.toString());
             throw new RangeError(message);
         }
+    }
+
+    cloneConfig(config) {
+        const clonedConfig = structuredClone(config);
+        return Object.assign(clonedConfig, this.validateConfig);
     }
 }

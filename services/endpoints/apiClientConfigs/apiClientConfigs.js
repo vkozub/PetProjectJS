@@ -21,7 +21,7 @@ const headersConfig = {
     headers: { 'Accept': 'application/json' }
 };
 
-const getConfig = Object.assign({}, defaultConfig, paramsConfig, validateConfig, headersConfig);
+const getConfig = Object.assign({}, defaultConfig, paramsConfig, headersConfig);
 const postConfig = Object.assign({}, defaultConfig, paramsConfig, headersConfig);
 const deleteConfig = Object.assign({}, defaultConfig, paramsConfig, validateConfig);
 
