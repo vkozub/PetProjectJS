@@ -11,8 +11,12 @@ test.describe('Trello login', () => {
   });
 
   test('Verify that member can do login', async ({ userBoardsPage }) => {
-    await userBoardsPage.verifyNavBarVisible();
-    await userBoardsPage.verifyYourWorkspacesLabelVisible();
+    await test.step('Verify that NavBar is visible', async () => {
+      await userBoardsPage.verifyNavBarVisible();
+    });
+    await test.step('Verify that WorkSpace label is visible', async () => {
+      await userBoardsPage.verifyYourWorkspacesLabelVisible();
+    });
   });
 
   test.afterEach(async ({ context }) => {
