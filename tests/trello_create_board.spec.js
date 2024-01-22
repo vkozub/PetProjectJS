@@ -3,19 +3,14 @@ const { boardPayload } = require('./../services/payloadFactories/BoardPayload.js
 
 test.describe('Trello Create a Board', () => {
   test.use({ boardName: 'board' + faker.string.alphanumeric(6) });
-  let boards, board, member, workspaceName;
-
-  test.beforeAll(async ({ membersEndpoint }) => {
-    member = await membersEndpoint.retrieveMember();
-    workspaceName = member.fullName + "'s workspace";
-  });
+  let boards, board;
 
   test.beforeEach(async ({ uiTrelloLoginSteps }, testInfo) => {
     console.log(`Running ${testInfo.title}`);
     await uiTrelloLoginSteps;
   });
 
-  test('Verify that member can create a new board via UI using "Create" button without having any workspace', async ({ userBoardsPage, boardName, boardPage, boardsEndpoint }) => {
+  test('Verify that member can create a new board via UI using "Create" button without having any workspace', async ({ userBoardsPage, boardName, boardPage, boardsEndpoint, memberTrello }) => {
     await userBoardsPage.tapCreate();
     await userBoardsPage.buildBoardSection.tapCreateBoard();
     await userBoardsPage.buildBoardSection.putBoardTitle(boardName);
@@ -23,7 +18,7 @@ test.describe('Trello Create a Board', () => {
     await userBoardsPage.buildBoardSection.tapYesMakePublic();
     await userBoardsPage.buildBoardSection.tapCreateBoardSubmit();
     await boardPage.verifyBoardNameVisible(boardName);
-    boards = await boardsEndpoint.retrieveAllBoards(boardsEndpoint.MEMBER_ID);
+    boards = await boardsEndpoint.retrieveAllBoards(memberTrello.id);
     await boardPage.verifyBoardNameData(boards, boardName);
   });
 
@@ -33,12 +28,12 @@ test.describe('Trello Create a Board', () => {
     await userBoardsPage.verifyHomeTeamBoardNameVisible(board.name);
   });
 
-  test.afterEach(async ({ context, removeBoardStep, boardName, organizationsEndpoint, removeOrganizationStep }) => {
+  test.afterEach(async ({ context, removeBoardStep, boardName, organizationsEndpoint, removeOrganizationStep, memberTrello }) => {
     await context.close();
     // remove the board
     await removeBoardStep(boards, boardName, board?.id);
     // remove the organization
-    let orgs = await organizationsEndpoint.retrieveAllOrganizations(organizationsEndpoint.MEMBER_ID);
-    await removeOrganizationStep(orgs, workspaceName);
+    let orgs = await organizationsEndpoint.retrieveAllOrganizations(memberTrello.id);
+    await removeOrganizationStep(orgs, memberTrello.defaultWorkspace);
   });
 });

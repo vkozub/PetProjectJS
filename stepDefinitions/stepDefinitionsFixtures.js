@@ -35,11 +35,8 @@ exports.test = base.test.extend({
         });
     },
 
-    // get the member account information
-    memberInfo: async ({ membersEndpoint }, use) => {
-        const member = await membersEndpoint.searchMember();
-        let workspaceName = member.fullName + "'s workspace";
-        member.defaultWorkspace = workspaceName;
-        await use(member);
+    memberTrello: async ( {}, use ) => {
+        let memberTrello = JSON.parse(process.env.TRELLO_MEMBER);
+        await use(memberTrello);
     },
 });

@@ -10,13 +10,13 @@ test.describe('Trello Create Workspace', () => {
     await uiTrelloLoginSteps;
   });
 
-  test('Verify that member can create a new workspace via UI using "Create a Workspace" button', async ({ userBoardsPage, organizationsEndpoint, workspaceName }) => {
+  test('Verify that member can create a new workspace via UI using "Create a Workspace" button', async ({ userBoardsPage, organizationsEndpoint, workspaceName, memberTrello }) => {
     await userBoardsPage.tapHomeNavCreateWorkspace();
     await userBoardsPage.buildWorkspaceSection.putWorkspaceName(workspaceName);
     await userBoardsPage.buildWorkspaceSection.selectWorkspaceType('Engineering-IT');
     await userBoardsPage.buildWorkspaceSection.tapContinue();
     await userBoardsPage.verifyHomeTeamWorkspaceNameVisible(workspaceName);
-    orgs = await organizationsEndpoint.retrieveAllOrganizations(organizationsEndpoint.MEMBER_ID);
+    orgs = await organizationsEndpoint.retrieveAllOrganizations(memberTrello.id);
     await userBoardsPage.verifyWorkspaceNameData(orgs, workspaceName);
   });
 
