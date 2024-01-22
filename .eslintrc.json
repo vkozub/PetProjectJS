@@ -8,7 +8,11 @@
     "parserOptions": {
         "ecmaVersion": "latest"
     },
+    "globals": {
+        "process": "writable"
+    },
     "rules": {
-        "no-empty-pattern": ["error", { "allowObjectPatternsAsParameters": true }]
+        "no-empty-pattern": ["error", { "allowObjectPatternsAsParameters": true }],
+        "no-extra-semi": "off"
     }
 }
