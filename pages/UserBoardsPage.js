@@ -1,10 +1,12 @@
 const BasePage = require('./BasePage.js');
 const BuildWorkspaceSection = require('../sections/BuildWorkspaceSection.js');
 const BuildBoardSection = require('../sections/BuildBoardSection.js');
+const ApiAsserts = require('./../asserts/ApiAsserts.js');
 
 module.exports = class UserBoardsPage extends BasePage {
     constructor(page, expect) {
         super(page, expect);
+        Object.assign(this, ApiAsserts);
     }
 
     get navBar() { return this.page.locator("xpath=//nav[@id='header']"); }
@@ -22,11 +24,5 @@ module.exports = class UserBoardsPage extends BasePage {
     async verifyNavBarVisible() { await this.expect(this.navBar).toBeVisible(); } 
     async verifyYourWorkspacesLabelVisible() { await this.expect(this.yourWorkspacesLabel).toBeVisible(); }
     async verifyHomeTeamWorkspaceNameVisible(name) { await this.expect(this.homeTeamWorkspaceNames).toContainText(name); } 
-    async verifyHomeTeamBoardNameVisible(name) { await this.expect(this.boardsList.filter({ hasText: name })).toHaveText(name); } 
-
-    async verifyWorkspaceNameData(orgs, workspaceExpected) { 
-        const workspaceActual = this.retrieveOrganization(orgs, workspaceExpected);
-        this.expect(workspaceActual).toBeTruthy();
-        this.expect(workspaceActual.displayName).toContain(workspaceExpected);
-    }
+    async verifyHomeTeamBoardNameVisible(name) { await this.expect(this.boardsList.filter({ hasText: name })).toHaveText(name); }
 }
