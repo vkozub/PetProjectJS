@@ -12,7 +12,6 @@
         "process": "writable"
     },
     "rules": {
-        "no-empty-pattern": ["error", { "allowObjectPatternsAsParameters": true }],
-        "no-extra-semi": "off"
+        "no-empty-pattern": ["error", { "allowObjectPatternsAsParameters": true }]
     }
 }

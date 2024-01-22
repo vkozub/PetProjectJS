@@ -19,7 +19,7 @@ exports.test = base.test.extend({
             } else {
                 const organization = await userBoardsPage.retrieveOrganization(organizations, workspaceName);
                 await organizationsEndpoint.deleteOrganization(organization?.id);
-            };
+            }
         });
     },
 
@@ -31,7 +31,7 @@ exports.test = base.test.extend({
             } else {
             const board = await boardPage.retrieveBoard(boards, boardName);
             await boardsEndpoint.deleteBoard(board?.id);
-            };
+            }
         });
     },
 

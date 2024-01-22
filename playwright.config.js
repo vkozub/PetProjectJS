@@ -1,7 +1,7 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
 
-if (!process.env.CI) { require('dotenv/config') };
+if (!process.env.CI) { require('dotenv/config') }
 
 /**
  * @see https://playwright.dev/docs/test-configuration
