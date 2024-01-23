@@ -1,4 +1,4 @@
-const { test } = require('./../support/env.js');
+const { test } = require('../../support/env.js');
 
 test.describe('Trello login', () => {
   test.beforeEach(async ({ loginHomePage, loginPage }) => {

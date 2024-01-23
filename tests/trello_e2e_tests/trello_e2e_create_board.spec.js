@@ -1,5 +1,5 @@
-const { faker, test } = require('./../support/env.js');
-const { boardPayload } = require('./../services/payloadFactories/BoardPayload.js');
+const { faker, test } = require('../../support/env.js');
+const { boardPayload } = require('../../services/payloadFactories/BoardPayload.js');
 
 test.describe('Trello Create a Board', () => {
   test.use({ boardName: 'board' + faker.string.alphanumeric(6) });

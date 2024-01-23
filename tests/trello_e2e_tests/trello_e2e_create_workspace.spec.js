@@ -1,5 +1,5 @@
-const { faker, test } = require('./../support/env.js');
-const { orgPayload } = require('./../services/payloadFactories/OrganizationPayload.js');
+const { faker, test } = require('../../support/env.js');
+const { orgPayload } = require('../../services/payloadFactories/OrganizationPayload.js');
 
 test.describe('Trello Create Workspace', () => {
   test.use({ workspaceName: faker.string.alphanumeric(10) });

@@ -1,7 +1,10 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
-
+const path = require('path');
 if (!process.env.CI) { require('dotenv/config') }
+
+const STORAGE_API_STATE = path.join(__dirname, '.auth/user.json');
+process.env.TRELLO_STORAGE_API_STATE_PATH = STORAGE_API_STATE;
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -33,13 +36,28 @@ module.exports = defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'setup',
-      testMatch: 'tests/setup.js',
+      name: 'initial setup',
+      testMatch: 'tests/initial_setup.js',
     },
     {
-      name: 'Trello Chromium Tests',
+      name: 'api tests setup',
+      testMatch: 'tests/api_tests_setup.js',
+    },
+    {
+      name: 'Trello Chromium e2e tests',
       use: { ...devices['Desktop Chrome'] },
-      dependencies: ['setup'],
+      testMatch: 'tests/trello_e2e_tests/**',
+      dependencies: ['initial setup'],
+    },
+    {
+      name: 'Trello API tests',
+      use: {
+        baseURL: 'https://api.trello.com/1/',
+        storageState: STORAGE_API_STATE,
+        extraHTTPHeaders: { 'Accept': 'application/json' },
+      },
+      testMatch: 'tests/trello_api_tests/**',
+      dependencies: ['api tests setup'],
     },
 
     // {
