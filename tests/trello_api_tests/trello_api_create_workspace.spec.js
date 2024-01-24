@@ -17,7 +17,8 @@ test('API test: create a workspace', async ({ apiTestRequestContext }) => {
     expect(org).toEqual(expect.objectContaining({ displayName: workspaceName }));
   });
 
-  test.afterEach(async ({ removeOrganizationStep, context }) => {
-    await removeOrganizationStep(null, null, org?.id);
-    await context.close();
-  });
+test.afterEach(async ({ removeOrganizationStep, context }) => {
+  await removeOrganizationStep(null, null, org?.id);
+  await context.close();
+});
+  
