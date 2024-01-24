@@ -42,6 +42,11 @@ module.exports = defineConfig({
     {
       name: 'api tests setup',
       testMatch: 'tests/api_tests_setup.js',
+      teardown: 'api tests teardown'
+    },
+    {
+      name: 'api tests teardown',
+      testMatch: 'tests/api_tests_teardown.js',
     },
     {
       name: 'Trello Chromium e2e tests',
