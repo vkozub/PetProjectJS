@@ -4,4 +4,4 @@
 /blob-report/
 /playwright/.cache/
 /.env
-/.auth/user.json
+/.auth/

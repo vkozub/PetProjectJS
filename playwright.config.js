@@ -3,7 +3,7 @@ const { defineConfig, devices } = require('@playwright/test');
 const path = require('path');
 if (!process.env.CI) { require('dotenv/config') }
 
-const STORAGE_API_STATE = path.join(__dirname, '.auth/user.json');
+const STORAGE_API_STATE = path.join(__dirname, '.auth/api_user.json');
 process.env.TRELLO_STORAGE_API_STATE_PATH = STORAGE_API_STATE;
 
 /**

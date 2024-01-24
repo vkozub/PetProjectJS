@@ -1,6 +1,6 @@
 const { test: setup } = require('../support/env.js');
 const { expect } = require('@playwright/test');
-const STORAGE_STATE = process.env.TRELLO_STORAGE_API_STATE_PATH;
+const STORAGE_API_STATE = process.env.TRELLO_STORAGE_API_STATE_PATH;
 const fs = require('fs');
 const path = require('path');
 
@@ -17,13 +17,13 @@ setup('Trello api tests setup', async ({ request }) => {
     expect(response.ok()).toBeTruthy();
 
     // create a dir and file to store cookies
-    const dirName = path.dirname(STORAGE_STATE)
+    const dirName = path.dirname(STORAGE_API_STATE)
     if (!fs.existsSync(dirName)) {
         fs.mkdirSync(dirName);
-        fs.closeSync(fs.openSync(STORAGE_STATE, 'w'));
+        fs.closeSync(fs.openSync(STORAGE_API_STATE, 'w'));
     }
-    // storing cookies
-    await request.storageState({ path: STORAGE_STATE });
+    // storing cookies for APIRequestContext
+    await request.storageState({ path: STORAGE_API_STATE });
 
     const resBody = await response.json();
     const memberTrello = resBody.shift();
