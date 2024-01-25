@@ -57,8 +57,6 @@ module.exports = defineConfig({
     {
       name: 'Trello API tests',
       use: {
-        baseURL: 'https://api.trello.com/1/',
-        storageState: STORAGE_API_STATE,
         extraHTTPHeaders: { 'Accept': 'application/json' },
       },
       testMatch: 'tests/trello_api_tests/**',
