@@ -9,6 +9,14 @@ setup('Trello api tests setup', async ({ request }) => {
     console.log(process.env.TRELLO_API_KEY);
     console.log(process.env.TRELLO_API_TOKEN);
     console.log(process.env.TRELLO_USERNAME);
+
+let st = JSON.stringify({
+    key: process.env.TRELLO_API_KEY,
+    token: process.env.TRELLO_API_TOKEN,
+    query: process.env.TRELLO_USERNAME
+});
+console.log(st);
+
     let response = await request.get('https://api.trello.com/1/search/members/', {
         params: {
             key: process.env.TRELLO_API_KEY,
