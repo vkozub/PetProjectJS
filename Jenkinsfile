@@ -28,20 +28,23 @@ pipeline {
                 git branch: "${params.BRANCH}", url: 'https://github.com/vkozub/PetProjectJS.git'
             }
         }
-        stage('Hello') {
+        stage('Build parameters') {
             steps {
                 echo "Project: ${params.PROJECT}"
                 echo "Numbers of workers: ${params.WORKERS}"
-                echo "Running ${env.WORKSPACE}
+                echo "Running ${env.WORKSPACE}"
             }
         }
         stage('Install dependencies') {
             steps {
                 sh 'printenv'
                 sh 'node --version'
-                sh 'npm -v'    
-                sh 'npm ci'
-                sh 'npx playwright install --with-deps'
+                sh 'npm -v'
+                dir("${JENKINS_HOME}/workspace/${JOB_NAME}/PetProjectJS") {
+                    sh 'pwd'
+                    // sh 'npm ci'
+                    // sh 'npx playwright install --with-deps'
+                }    
             }
         }
         stage('Running tests') {
