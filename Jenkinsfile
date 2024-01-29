@@ -37,13 +37,13 @@ pipeline {
         }
         stage('Install dependencies') {
             steps {
-                sh 'printenv'
+                // sh 'printenv'
                 sh 'node --version'
                 sh 'npm -v'
                 dir("${JENKINS_HOME}/workspace/${JOB_NAME}/PetProjectJS") {
                     sh 'pwd'
-                    // sh 'npm ci'
-                    // sh 'npx playwright install --with-deps'
+                    sh 'npm ci'
+                    sh 'npx playwright install --with-deps'
                 }    
             }
         }
