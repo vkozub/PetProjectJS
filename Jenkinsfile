@@ -14,7 +14,7 @@ pipeline {
         TRELLO_API_KEY = credentials('trello_api_key')
         TRELLO_API_TOKEN = credentials('trello_api_token')
         TRELLO_UI_CREDS = credentials('trello_ui_credentials')
-        TRELLO_USERNAME = env.TRELLO_UI_CREDS_USR
+        TRELLO_USERNAME = "${TRELLO_UI_CREDS_USR}"
         TRELLO_PASSWORD = TRELLO_UI_CREDS_PSW
         BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].userId}"
     }
