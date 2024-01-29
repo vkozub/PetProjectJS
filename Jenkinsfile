@@ -50,7 +50,7 @@ pipeline {
         stage('Running tests') {
             steps {
                 echo "npx playwright test --project='${params.PROJECT}' --workers=${params.WORKERS}"
-            // sh "npx playwright test --project='${params.PROJECT}' --workers=${params.WORKERS}"
+                sh "npx playwright test --project='${params.PROJECT}' --workers=${params.WORKERS}"
             // sh 'npx playwright test'
             }
         }
