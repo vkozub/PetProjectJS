@@ -13,10 +13,8 @@ pipeline {
     environment {
         TRELLO_API_KEY = credentials('trello_api_key')
         TRELLO_API_TOKEN = credentials('trello_api_token')
-        TRELLO_UI_CREDS = credentials('trello_ui_credentials')
-        TRELLO_USERNAME = "${TRELLO_UI_CREDS_USR}"
-        // TRELLO_PASSWORD = "${TRELLO_UI_CREDS_PSW}"
-        TRELLO_PASSWORD = sh(returnStdout: true, script: 'echo $TRELLO_UI_CREDS_PSW').trim()
+        // TRELLO_USERNAME = 'vsevolod.kozub@gmail.com'
+        TRELLO_PASSWORD = credentials('trello_ui_password')
         BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].userId}"
     }
 
@@ -38,7 +36,6 @@ pipeline {
         }
         stage('Install dependencies') {
             steps {
-                // sh 'export TRELLO_PASSWORD=$TRELLO_UI_CREDS_PSW'
                 sh 'printenv'
                 sh 'node --version'
                 sh 'npm -v'
