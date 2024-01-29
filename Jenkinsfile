@@ -49,6 +49,7 @@ pipeline {
         }
         stage('Running tests') {
             steps {
+                script {
                 def project
 
                 switch (params.PROJECT) {
@@ -65,6 +66,7 @@ pipeline {
                     case 'All tests':
                         sh 'npx playwright test'
                         break
+                }
                 }
             }
         }
