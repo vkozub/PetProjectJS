@@ -6,7 +6,7 @@ pipeline {
     tools {nodejs "recent node"}
 
     parameters {
-        string(name: 'BRANCH', defaultValue: 'main', description: 'GitHub test branch')
+        gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
         choice(name: 'PROJECT', choices: ['Trello Chromium e2e tests', 'Trello API tests', 'All tests'], description: 'Project to be run')
         choice(name: 'WORKERS', choices: ['1', '2', '3'], description: 'Select amount or workers')
     }
@@ -16,15 +16,23 @@ pipeline {
         TRELLO_UI_CREDS = credentials('trello_ui_credentials')
         TRELLO_USERNAME = '$TRELLO_UI_CREDS_USR'
         TRELLO_PASSWORD = '$TRELLO_UI_CREDS_PSW'
+        BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].userId}"
     }
 
     stages {
+        stage('Clonning repo') {
+            steps {
+                echo "Build triggered by: ${BUILD_TRIGGER_BY}"
+                // clonning git repo
+                echo "Git branch '${params.BRANCH}' to clone"
+                git branch: "${params.BRANCH}", url: 'https://github.com/vkozub/PetProjectJS.git'
+            }
+        }
         stage('Hello') {
             steps {
-                echo "Hello ${params.PERSON}"
-                echo "Toggle: ${params.TOGGLE}"
-                echo "Choice: ${params.CHOICE}"
-                echo "Running ${env.BUILD_ID}"
+                echo "Project: ${params.PROJECT}"
+                echo "Numbers of workers: ${params.WORKERS}"
+                echo "Running ${env.WORKSPACE}
             }
         }
         stage('Install dependencies') {
@@ -38,14 +46,27 @@ pipeline {
         }
         stage('Running tests') {
             steps {
+                echo "npx playwright test --project='${params.PROJECT}' --workers=${params.WORKERS}"
             // sh "npx playwright test --project='${params.PROJECT}' --workers=${params.WORKERS}"
             // sh 'npx playwright test'
             }
         }
-        stage('Post actions') {
-            steps {
-            
+    }
+    post {
+        // Clean after build
+        always {
+            // cd to target Workspace dir
+            dir("${JENKINS_HOME}/workspace/") {
+                cleanWs(cleanWhenNotBuilt: true,
+                        deleteDirs: true,
+                        disableDeferredWipeout: true,
+                        notFailBuild: true)
             }
+
+            // send an email to requestor
+            emailext body: "${currentBuild.projectName} - Build # ${currentBuild.id} - ${currentBuild.result}: Check console output at ${currentBuild.absoluteUrl} to view the results.",
+            recipientProviders: [requestor()],
+            subject: "${currentBuild.projectName} - Build # ${currentBuild.id} - ${currentBuild.result}!"
         }
     }
 }
