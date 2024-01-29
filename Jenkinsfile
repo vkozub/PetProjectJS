@@ -64,7 +64,7 @@ pipeline {
                             break
 
                         case 'All tests':
-                            sh 'npx playwright test'
+                            sh 'npx playwright test --project="Trello API tests" --workers=1'
                             break
                     }
                 }
