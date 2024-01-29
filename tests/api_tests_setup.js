@@ -6,6 +6,9 @@ const path = require('path');
 
 setup('Trello api tests setup', async ({ request }) => {
     // login into api server and store the API context
+    console.log(process.env.TRELLO_API_KEY);
+    console.log(process.env.TRELLO_API_TOKEN);
+    console.log(process.env.TRELLO_USERNAME);
     let response = await request.get('https://api.trello.com/1/search/members/', {
         params: {
             key: process.env.TRELLO_API_KEY,
