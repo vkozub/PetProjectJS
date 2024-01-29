@@ -49,9 +49,23 @@ pipeline {
         }
         stage('Running tests') {
             steps {
-                echo "npx playwright test --project='${params.PROJECT}' --workers=${params.WORKERS}"
-                sh "npx playwright test --project=${params.PROJECT} --workers=${params.WORKERS}"
-            // sh 'npx playwright test'
+                def project
+
+                switch (params.PROJECT) {
+                    case 'Trello Chromium e2e tests':
+                        project = 'Trello Chromium e2e tests'
+                        sh "npx playwright test --project=${project} --workers=${params.WORKERS}"
+                        break
+
+                    case 'Trello API tests':
+                        project = 'Trello API tests'
+                        sh "npx playwright test --project=${project} --workers=${params.WORKERS}"
+                        break
+
+                    case 'All tests':
+                        sh 'npx playwright test'
+                        break
+                }
             }
         }
     }
