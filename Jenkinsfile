@@ -13,7 +13,6 @@ pipeline {
     environment {
         TRELLO_API_KEY = credentials('trello_api_key')
         TRELLO_API_TOKEN = credentials('trello_api_token')
-        // TRELLO_USERNAME = 'vsevolod.kozub@gmail.com'
         TRELLO_USERNAME = "${TRELLO_USERNAME_GLOBAL}"
         TRELLO_PASSWORD = credentials('trello_ui_password')
         BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].userId}"
