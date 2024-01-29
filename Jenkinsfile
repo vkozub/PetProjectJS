@@ -15,7 +15,7 @@ pipeline {
         TRELLO_API_TOKEN = credentials('trello_api_token')
         TRELLO_UI_CREDS = credentials('trello_ui_credentials')
         TRELLO_USERNAME = "${TRELLO_UI_CREDS_USR}"
-        TRELLO_PASSWORD = "${TRELLO_UI_CREDS_PSW}"
+        // TRELLO_PASSWORD = "${TRELLO_UI_CREDS_PSW}"
         BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].userId}"
     }
 
@@ -38,7 +38,7 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 // sh 'export TRELLO_PASSWORD=$TRELLO_UI_CREDS_PSW'
-                sh 'printenv'
+                // sh 'printenv'
                 sh 'node --version'
                 sh 'npm -v'
                 dir("${JENKINS_HOME}/workspace/${JOB_NAME}/PetProjectJS") {
@@ -50,6 +50,8 @@ pipeline {
         }
         stage('Running tests') {
             steps {
+                sh 'export TRELLO_PASSWORD=$TRELLO_UI_CREDS_PSW'
+                sh 'printenv'
                 script {
                     if (params.PROJECT == 'All tests') {
                         sh "npx playwright test --workers=${params.WORKERS}"
