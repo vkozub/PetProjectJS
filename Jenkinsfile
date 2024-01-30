@@ -22,7 +22,6 @@ pipeline {
         stage('Clonning repo') {
             steps {
                 echo "Build triggered by: ${BUILD_TRIGGER_BY}"
-                currentBuild.description = "<b>${BUILD_TRIGGER_BY}</b>"
                 // clonning git repo
                 echo "Git branch '${params.BRANCH}' to clone"
                 git branch: "${params.BRANCH}", url: 'https://github.com/vkozub/PetProjectJS.git'
@@ -50,6 +49,7 @@ pipeline {
         stage('Running tests') {
             steps {
                 script {
+                    currentBuild.description = "<b>${BUILD_TRIGGER_BY}</b>"
                     if (params.PROJECT == 'All tests') {
                         sh "npx playwright test --workers=${params.WORKERS}"
                     }
