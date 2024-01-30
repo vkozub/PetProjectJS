@@ -3,7 +3,7 @@ const { boardFunctions } = require('../../generators/functions/BoardFunctions.js
 
 let board;
 
-test('Verify that email key can be created for a board', async ({ boardsGenerator }) => {
+test('Verify that email key can be generated for a board', async ({ boardsGenerator }) => {
     let options = boardFunctions({emailKey: true});
     board = await boardsGenerator.generateBoard(options);
 });

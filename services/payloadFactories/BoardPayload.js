@@ -1,4 +1,4 @@
-const { faker } = require('./../../support/env.js');
+const { faker } = require('@faker-js/faker');
 
 const boardPayload = function(){
     return {
