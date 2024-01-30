@@ -6,6 +6,7 @@ module.exports = class BoardsEndpoint extends BaseClientAPI {
     CREATE_BOARD_ENDPOINT = 'boards';
     CREATE_BOARD_CALENDAR_KEY_ENDPOINT = 'boards/:id/calendarKey/generate';
     CREATE_BOARD_EMAIL_KEY_ENDPOINT = 'boards/:id/emailKey/generate';
+    CREATE_BOARD_LIST_ENDPOINT = 'boards/:id/lists';
     MARK_BOARD_AS_VIEWED_ENDPOINT = 'boards/:id/markedAsViewed';
 
     constructor() {
@@ -45,5 +46,11 @@ module.exports = class BoardsEndpoint extends BaseClientAPI {
     async markAsViewed(boardId) {
         const response = await this.postWithParams(this.formatPath(this.MARK_BOARD_AS_VIEWED_ENDPOINT, 'id', boardId), {}, 200);
         console.log(`Response code of marking of a board ${boardId} as viewed is ${response.status}`);
+    }
+
+    async createList(boardId, payload) {
+        const response = await this.postWithParams(this.formatPath(this.CREATE_BOARD_LIST_ENDPOINT, 'id', boardId), payload, 200);
+        console.log(`Response code of creating of a board ${boardId} list ${payload.name} is ${response.status}`);
+        return response.data;
     }
 }

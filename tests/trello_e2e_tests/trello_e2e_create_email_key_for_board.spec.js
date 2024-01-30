@@ -8,6 +8,11 @@ test('Verify that email key can be generated for a board', async ({ boardsGenera
     board = await boardsGenerator.generateBoard(options);
 });
 
+test('Verify that list can be generated for a board', async ({ boardsGenerator }) => {
+    let options = boardFunctions({list: true});
+    board = await boardsGenerator.generateBoard(options);
+});
+
 test.afterEach(async ({ context, removeBoardStep, removeOrganizationStep }) => {
     await context.close();
     // remove the board
