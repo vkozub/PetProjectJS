@@ -13,15 +13,19 @@ module.exports = class BoardGenerator {
     async generateBoard(options) {
         let org = await this.createOrganization();
         let board = await this.createBoard(org);
+        let emailKey, calendarKey, viewed;
         if (options.calendarKey) {
-            this.boardEnd.createCalendarKey(board.id);
+            calendarKey = await this.boardEnd.createCalendarKey(board.id);
         } else if (options.emailKey) {
-            this.boardEnd.createEmailKey(board.id);
+            emailKey = await this.boardEnd.createEmailKey(board.id);
         } else if (options.viewed) {
-            this.boardEnd.markAsViewed(board.id);
+            viewed = await this.boardEnd.markAsViewed(board.id);
         }
         board.organization = org;
-        return Object.assign(board, options);
+        board.emailKey = emailKey;
+        board.calendarKey = calendarKey;
+        board.viewed = viewed;
+        return board;
     }
 
     async createOrganization() {

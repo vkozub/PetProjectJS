@@ -39,6 +39,7 @@ module.exports = class BoardsEndpoint extends BaseClientAPI {
     async createEmailKey(boardId) {
         const response = await this.postWithParams(this.formatPath(this.CREATE_BOARD_EMAIL_KEY_ENDPOINT, 'id', boardId), {}, 200);
         console.log(`Response code of creating of a board ${boardId} email key is ${response.status}`);
+        return response.data;
     }
 
     async markAsViewed(boardId) {
