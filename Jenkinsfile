@@ -69,7 +69,8 @@ pipeline {
                 cleanWs(cleanWhenNotBuilt: true,
                         deleteDirs: true,
                         disableDeferredWipeout: true,
-                        notFailBuild: true)
+                        notFailBuild: true,
+                        patterns: [[pattern: 'playwright-report', type: 'EXCLUDE']])
             }
 
             // send an email to requestor
