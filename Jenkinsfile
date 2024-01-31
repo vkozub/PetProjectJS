@@ -18,6 +18,10 @@ pipeline {
         BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].userId}"
     }
 
+    options {
+        skipDefaultCheckout(true)
+    }
+
     stages {
         stage('Clonning repo') {
             steps {
