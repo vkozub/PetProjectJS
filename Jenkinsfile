@@ -65,7 +65,9 @@ pipeline {
             }
         }
         stage('Publish results') {
-            junit 'test-results/results.xml'
+            steps {
+                junit 'test-results/results.xml'
+            }
         }
     }
     post {
