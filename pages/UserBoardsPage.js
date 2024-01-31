@@ -20,6 +20,7 @@ module.exports = class UserBoardsPage extends BasePage {
 
     async tapHomeNavCreateWorkspace() { await this.homeNavCreateWorkspaceButton.click(); }
     async tapCreate() { await this.createButton.click(); }
+    async tapBoard(name) { await this.page.locator(`xpath=//*[text()='${name}']`).click(); }
 
     async verifyNavBarVisible() { await this.expect(this.navBar).toBeVisible(); } 
     async verifyYourWorkspacesLabelVisible() { await this.expect(this.yourWorkspacesLabel).toBeVisible(); }

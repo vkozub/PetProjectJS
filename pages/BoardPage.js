@@ -14,4 +14,8 @@ module.exports = class BoardPage extends BasePage {
     }
 
     async verifyBoardNameVisible(boardNameExpected) { await this.expect(this.boardNameLabel).toHaveText(boardNameExpected); }
+    async verifyListNameVisible(listNameExpected) { 
+        let listActual = this.page.locator(`xpath=//h2[text()='${listNameExpected}']`);
+        await this.expect(listActual).toBeVisible();
+     }
 }

@@ -3,9 +3,12 @@ const { boardFunctions } = require('../../generators/functions/BoardFunctions.js
 
 let board;
 
-test('Verify that list can be generated for a board via BE', async ({ boardsGenerator }) => {
+test('Verify that list can be generated for a board via BE', async ({ boardsGenerator, uiTrelloLoginSteps, boardPage, userBoardsPage }) => {
     let options = boardFunctions({list: true});
     board = await boardsGenerator.generateBoard(options);
+    await uiTrelloLoginSteps;
+    await userBoardsPage.tapBoard(board.name);
+    await boardPage.verifyListNameVisible(board.list.name);
 });
 
 test.afterEach(async ({ context, removeBoardStep, removeOrganizationStep }) => {
