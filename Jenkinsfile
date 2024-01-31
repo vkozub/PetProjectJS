@@ -64,6 +64,9 @@ pipeline {
                 }
             }
         }
+        stage('Publish results') {
+            junit 'test-results/results.xml'
+        }
     }
     post {
         // Clean after build
