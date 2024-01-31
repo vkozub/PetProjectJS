@@ -66,11 +66,11 @@ pipeline {
         always {
             // cd to target Workspace dir
             dir("${JENKINS_HOME}/workspace/${JOB_NAME}") {
-                cleanWs(cleanWhenNotBuilt: true,
-                        deleteDirs: true,
-                        disableDeferredWipeout: true,
-                        notFailBuild: true,
-                        patterns: [[pattern: 'playwright-report', type: 'EXCLUDE']])
+                // cleanWs(cleanWhenNotBuilt: true,
+                //         deleteDirs: true,
+                //         disableDeferredWipeout: true,
+                //         notFailBuild: true,
+                //         patterns: [[pattern: 'playwright-report', type: 'EXCLUDE']])
             }
 
             // send an email to requestor
