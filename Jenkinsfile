@@ -40,11 +40,11 @@ pipeline {
         }
         stage('Install dependencies') {
             steps {
-                sh 'printenv'
+                // sh 'printenv'
                 sh 'node --version'
                 sh 'npm -v'
                 dir("${JENKINS_HOME}/workspace/${JOB_NAME}/PetProjectJS") {
-                    sh 'pwd'
+                    // sh 'pwd'
                     sh 'npm ci'
                     sh 'npx playwright install --with-deps'
                 }    
@@ -53,7 +53,7 @@ pipeline {
         stage('Running tests') {
             steps {
                 script {
-                    currentBuild.description = "<b>${BUILD_TRIGGER_BY}</b>"
+                    currentBuild.description = "${BUILD_TRIGGER_BY}"
                     if (params.PROJECT == 'All tests') {
                         sh "npx playwright test --workers=${params.WORKERS}"
                     }
