@@ -78,7 +78,7 @@ pipeline {
                 cleanWs(cleanWhenNotBuilt: true,
                         deleteDirs: true,
                         disableDeferredWipeout: true,
-                        notFailBuild: true
+                        notFailBuild: true)
                         // patterns: [[pattern: 'test-results/**', type: 'EXCLUDE']])
             }
 
