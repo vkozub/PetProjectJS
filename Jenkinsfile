@@ -64,16 +64,14 @@ pipeline {
                 }
             }
         }
-        stage('Publish results') {
-            steps {
-                junit 'test-results/results.xml'
-            }
-        }
     }
     post {
         // Clean after build
         always {
+            // publish the build results
             junit 'test-results/results.xml'
+            sh 'pwd'
+
             // cd to target Workspace dir
             dir("${JENKINS_HOME}/workspace/${JOB_NAME}") {
                 cleanWs(cleanWhenNotBuilt: true,
