@@ -43,11 +43,14 @@ pipeline {
                 // sh 'printenv'
                 sh 'node --version'
                 sh 'npm -v'
-                dir("${JENKINS_HOME}/workspace/${JOB_NAME}/PetProjectJS") {
-                    // sh 'pwd'
-                    sh 'npm ci'
-                    sh 'npx playwright install --with-deps'
-                }    
+                sh 'pwd'
+                sh 'npm ci'
+                sh 'npx playwright install --with-deps'
+                // dir("${JENKINS_HOME}/workspace/${JOB_NAME}/PetProjectJS") {
+                //     // sh 'pwd'
+                //     sh 'npm ci'
+                //     sh 'npx playwright install --with-deps'
+                // }    
             }
         }
         stage('Running tests') {
@@ -69,10 +72,12 @@ pipeline {
         // Clean after build
         always {
             // publish the build results
-            dir("${JENKINS_HOME}/workspace/${JOB_NAME}/PetProjectJS") {
-                    junit 'test-results/results.xml'
-                    sh 'pwd'
-                }
+            junit 'test-results/results.xml'
+            sh 'pwd'
+            // dir("${JENKINS_HOME}/workspace/${JOB_NAME}/PetProjectJS") {
+            //         junit 'test-results/results.xml'
+            //         sh 'pwd'
+            //     }
             
             // cd to target Workspace dir
             // dir("${JENKINS_HOME}/workspace/${JOB_NAME}") {
