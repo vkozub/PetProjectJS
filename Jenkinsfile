@@ -67,7 +67,7 @@ pipeline {
         // Clean after build
         always {
             // publish the build results
-            junit skipMarkingBuildUnstable: true, testResults: 'test-results/results.xml'
+            junit(skipMarkingBuildUnstable: true, testResults: 'test-results/results.xml')
             
             // cd to target Workspace dir
             dir("${JENKINS_HOME}/workspace/${JOB_NAME}") {
