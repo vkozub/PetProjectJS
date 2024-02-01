@@ -14,7 +14,7 @@ test('API test: create a workspace', async ({ apiTestRequestContext }) => {
     });
     expect(response.ok()).toBeTruthy();
     org = await response.json();
-    expect(org).toEqual(expect.objectContaining({ displayName: workspaceName }));
+    expect(org).toEqual(expect.objectContaining({ displayName: 'DDD' }));
   });
 
 test.afterEach(async ({ removeOrganizationStep, context }) => {
