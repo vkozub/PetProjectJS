@@ -79,7 +79,7 @@ pipeline {
                         deleteDirs: true,
                         disableDeferredWipeout: true,
                         notFailBuild: true)
-                        // patterns: [[pattern: 'test-results/**', type: 'EXCLUDE']])
+                        patterns: [[pattern: 'test-results/**', type: 'EXCLUDE']])
             }
 
             // send an email to requestor
