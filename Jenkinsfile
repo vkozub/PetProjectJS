@@ -75,13 +75,13 @@ pipeline {
                 }
             
             // cd to target Workspace dir
-            dir("${JENKINS_HOME}/workspace/${JOB_NAME}") {
-                cleanWs(cleanWhenNotBuilt: true,
-                        deleteDirs: true,
-                        disableDeferredWipeout: true,
-                        notFailBuild: true)
-                        // patterns: [[pattern: 'test-results/**', type: 'EXCLUDE']])
-            }
+            // dir("${JENKINS_HOME}/workspace/${JOB_NAME}") {
+            //     cleanWs(cleanWhenNotBuilt: true,
+            //             deleteDirs: true,
+            //             disableDeferredWipeout: true,
+            //             notFailBuild: true)
+            //             // patterns: [[pattern: 'test-results/**', type: 'EXCLUDE']])
+            // }
 
             // send an email to requestor
             emailext body: "${currentBuild.projectName} - Build # ${currentBuild.id} - ${currentBuild.result}: Check console output at ${currentBuild.absoluteUrl} to view the results.",
