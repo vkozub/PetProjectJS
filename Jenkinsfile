@@ -73,6 +73,7 @@ pipeline {
     post {
         // Clean after build
         always {
+            junit 'test-results/results.xml'
             // cd to target Workspace dir
             dir("${JENKINS_HOME}/workspace/${JOB_NAME}") {
                 cleanWs(cleanWhenNotBuilt: true,
