@@ -45,12 +45,7 @@ pipeline {
                 sh 'npm -v'
                 sh 'pwd'
                 sh 'npm ci'
-                sh 'npx playwright install --with-deps'
-                // dir("${JENKINS_HOME}/workspace/${JOB_NAME}/PetProjectJS") {
-                //     // sh 'pwd'
-                //     sh 'npm ci'
-                //     sh 'npx playwright install --with-deps'
-                // }    
+                sh 'npx playwright install --with-deps'    
             }
         }
         stage('Running tests') {
@@ -73,20 +68,15 @@ pipeline {
         always {
             // publish the build results
             junit 'test-results/results.xml'
-            sh 'pwd'
-            // dir("${JENKINS_HOME}/workspace/${JOB_NAME}/PetProjectJS") {
-            //         junit 'test-results/results.xml'
-            //         sh 'pwd'
-            //     }
             
             // cd to target Workspace dir
-            // dir("${JENKINS_HOME}/workspace/${JOB_NAME}") {
-            //     cleanWs(cleanWhenNotBuilt: true,
-            //             deleteDirs: true,
-            //             disableDeferredWipeout: true,
-            //             notFailBuild: true)
-            //             // patterns: [[pattern: 'test-results/**', type: 'EXCLUDE']])
-            // }
+            dir("${JENKINS_HOME}/workspace/${JOB_NAME}") {
+                cleanWs(cleanWhenNotBuilt: true,
+                        deleteDirs: true,
+                        disableDeferredWipeout: true,
+                        notFailBuild: true,
+                        patterns: [[pattern: 'test-results/**', type: 'EXCLUDE']])
+            }
 
             // send an email to requestor
             emailext body: "${currentBuild.projectName} - Build # ${currentBuild.id} - ${currentBuild.result}: Check console output at ${currentBuild.absoluteUrl} to view the results.",
