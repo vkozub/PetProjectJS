@@ -69,16 +69,18 @@ pipeline {
         // Clean after build
         always {
             // publish the build results
-            junit 'test-results/results.xml'
-            sh 'pwd'
-
+            dir("${JENKINS_HOME}/workspace/${JOB_NAME}/PetProjectJS") {
+                    junit 'test-results/results.xml'
+                    sh 'pwd'
+                }
+            
             // cd to target Workspace dir
             dir("${JENKINS_HOME}/workspace/${JOB_NAME}") {
                 cleanWs(cleanWhenNotBuilt: true,
                         deleteDirs: true,
                         disableDeferredWipeout: true,
-                        notFailBuild: true,
-                        patterns: [[pattern: 'test-results/**', type: 'EXCLUDE']])
+                        notFailBuild: true)
+                        // patterns: [[pattern: 'test-results/**', type: 'EXCLUDE']])
             }
 
             // send an email to requestor
