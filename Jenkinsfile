@@ -68,15 +68,15 @@ pipeline {
         always {
             // publish the build results
             junit(skipMarkingBuildUnstable: true, testResults: 'test-results/results.xml')
-            archiveArtifacts 'support/**'
+            archiveArtifacts 'test-results/**'
             
             // cd to target Workspace dir
             dir("${JENKINS_HOME}/workspace/${JOB_NAME}") {
                 cleanWs(cleanWhenNotBuilt: true,
                         deleteDirs: true,
                         disableDeferredWipeout: true,
-                        notFailBuild: true,
-                        patterns: [[pattern: 'test-results/**', type: 'EXCLUDE']])
+                        notFailBuild: true)
+                        // patterns: [[pattern: 'test-results/**', type: 'EXCLUDE']])
             }
 
             // send an email to requestor
