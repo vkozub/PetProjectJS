@@ -21,3 +21,5 @@ const endpointLogger = winston.createLogger({
 });
 
 module.exports = { apiClientLogger, endpointLogger };
+
+// for axios it is better to use 'axios-logger' or 'got' package as API client (using hooks to intercept requests and responses)
