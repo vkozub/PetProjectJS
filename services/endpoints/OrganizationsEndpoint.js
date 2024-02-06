@@ -16,14 +16,14 @@ module.exports = class OrganizationsEndpoint extends BaseClientAPI {
 
     async deleteOrganization(organizationId) {
         const response = await this.delete(this.formatPath(this.RETRIEVE_ORGANIZATION_ENDPOINT, 'id', organizationId));
-        console.log(`Response code of deleting of organization with id:${organizationId} is ${response.status}`);
+        this.logger.info(`Organization with id ${organizationId} deleted with status code ${response.status}`);
         return response.status;
     }
 
     async createOrganization(payload) {
         const response = await this.postWithParams(this.CREATE_ORGANIZATION_ENDPOINT, payload, 200);
-        console.log(`Response code of creating of organization with name:${payload.displayName} is ${response.status}`);
         payload.id = response.data.id;
+        this.logger.info(`Organization ${JSON.stringify(payload)} created with status code ${response.status}`);
         return payload;
     }
 }

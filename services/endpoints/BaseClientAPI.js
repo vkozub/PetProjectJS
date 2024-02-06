@@ -1,5 +1,6 @@
 const axios = require('axios');
 const { getConfig, postConfig, deleteConfig, validateConfig } = require('./apiClientConfigs/apiClientConfigs.js');
+const { apiClientLogger, endpointLogger } = require('./../../support/apiLogger.js');
 
 module.exports = class BaseClientAPI {
     constructor() {
@@ -8,9 +9,11 @@ module.exports = class BaseClientAPI {
         this.POST_CONFIG = postConfig;
         this.DELETE_CONFIG = deleteConfig;
         this.validateConfig = validateConfig;
+        this.logger = endpointLogger;
     }
 
     async get(endpoint, status = 200) {
+        apiClientLogger.info(`GET ${endpoint} with status ${status}`);
         const config = this.cloneConfig(this.GET_CONFIG);
         const responsePromise = axios.get(endpoint, config);
         this.validateStatusCode(responsePromise, status);
@@ -20,12 +23,14 @@ module.exports = class BaseClientAPI {
     async getWithParams(endpoint, query, status = 200) {
         const config = this.cloneConfig(this.GET_CONFIG);
         config.params['query'] = query;
+        apiClientLogger.info(`${endpoint} with params ${query.toString()} and status ${status}`);
         const responsePromise = axios.get(endpoint, config);
         this.validateStatusCode(responsePromise, status);
         return responsePromise;
     }
 
     async delete(endpoint, status = 200) {
+        apiClientLogger.info(`DELETE ${endpoint} with status ${status}`);
         const responsePromise = axios.delete(endpoint, this.DELETE_CONFIG); 
         this.validateStatusCode(responsePromise, status);
         return responsePromise;
@@ -33,6 +38,7 @@ module.exports = class BaseClientAPI {
 
     async post(endpoint, payload, status = 201) {
         const config = this.cloneConfig(this.POST_CONFIG);
+        apiClientLogger.info(`POST ${endpoint} with status ${status}`);
         const responsePromise = axios.post(endpoint, payload, config); 
         this.validateStatusCode(responsePromise, status);
         return responsePromise;
@@ -43,6 +49,7 @@ module.exports = class BaseClientAPI {
         for (let [key, value] of Object.entries(payload)) {
             config.params[key] = value;
         }
+        apiClientLogger.info(`POST ${endpoint} with payload ${JSON.stringify(payload)} and status ${status}`);
         const responsePromise = axios.post(endpoint, null, config); 
         this.validateStatusCode(responsePromise, status);
         return responsePromise;

@@ -15,42 +15,43 @@ module.exports = class BoardsEndpoint extends BaseClientAPI {
 
     async retrieveAllBoards(memberId) {
         const response = await this.get(this.formatPath(this.GET_ALL_BOARDS_ENDPOINT, 'id', memberId));
+        this.logger.info(`Retrieved all boards for the member ${JSON.stringify(response.data)} with status code ${response.status}`);
         return response.data;
     }
 
     async deleteBoard(boardId) {
         const response = await this.delete(this.formatPath(this.RETRIEVE_BOARD_ENDPOINT, 'id', boardId));
-        console.log(`Response code of deleting of board with id:${boardId} is ${response.status}`);
+        this.logger.info(`Board with id ${boardId} deleted with status code ${response.status}`);
         return response.status;
     }
 
     async createBoard(payload) {
         const response = await this.postWithParams(this.CREATE_BOARD_ENDPOINT, payload, 200);
-        console.log(`Response code of creating of a board with name:${payload.name} is ${response.status}`);
         payload.id = response.data.id;
         payload.idOrganization = response.data.idOrganization;
+        this.logger.info(`Board ${JSON.stringify(payload)} created with status code ${response.status}`);
         return payload;
     }
 
     async createCalendarKey(boardId) {
         const response = await this.postWithParams(this.formatPath(this.CREATE_BOARD_CALENDAR_KEY_ENDPOINT, 'id', boardId), {}, 200);
-        console.log(`Response code of creating of a board ${boardId} calendar key is ${response.status}`);
+        this.logger.info(`Board with id ${boardId} got calendar Key with status code ${response.status}`);
     }
 
     async createEmailKey(boardId) {
         const response = await this.postWithParams(this.formatPath(this.CREATE_BOARD_EMAIL_KEY_ENDPOINT, 'id', boardId), {}, 200);
-        console.log(`Response code of creating of a board ${boardId} email key is ${response.status}`);
+        this.logger.info(`Board with id ${boardId} got email Key with status code ${response.status}`);
         return response.data;
     }
 
     async markAsViewed(boardId) {
         const response = await this.postWithParams(this.formatPath(this.MARK_BOARD_AS_VIEWED_ENDPOINT, 'id', boardId), {}, 200);
-        console.log(`Response code of marking of a board ${boardId} as viewed is ${response.status}`);
+        this.logger.info(`Board with id ${boardId} marked as viewed with status code ${response.status}`);
     }
 
     async createList(boardId, payload) {
         const response = await this.postWithParams(this.formatPath(this.CREATE_BOARD_LIST_ENDPOINT, 'id', boardId), payload, 200);
-        console.log(`Response code of creating of a board ${boardId} list ${payload.name} is ${response.status}`);
+        this.logger.info(`List ${JSON.stringify(payload)} for the board with id ${boardId} created with status code ${response.status}`);
         return response.data;
     }
 }
