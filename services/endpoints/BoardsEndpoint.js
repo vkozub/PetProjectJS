@@ -15,7 +15,7 @@ module.exports = class BoardsEndpoint extends BaseClientAPI {
 
     async retrieveAllBoards(memberId) {
         const response = await this.get(this.formatPath(this.GET_ALL_BOARDS_ENDPOINT, 'id', memberId));
-        this.logger.info(`Retrieved all boards for the member ${JSON.stringify(response.data)} with status code ${response.status}`);
+        this.logger.info(`Retrieved all boards for the member with status code ${response.status}`);
         return response.data;
     }
 
