@@ -1,0 +1,6 @@
+
+    I did smoke testing 'videoslots.com' website, including: creating account and login, searching, update profile, opening game entity (but NOT playing 
+because there is not possibility to add any VISA cards for Ukraine location).
+    I did not find any cirtical bug, possibly due to lack of knowledge of bussiness flows
+and no possibility to play any game entity and having a deal with financial instruments.
+    That is why I decided to provide 2 defect reports.
