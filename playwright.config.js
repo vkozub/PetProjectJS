@@ -56,6 +56,11 @@ module.exports = defineConfig({
       dependencies: ['initial setup'],
     },
     {
+      name: 'Evernote Chromium e2e tests',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: 'tests/evernote_e2e_tests/**'
+    },
+    {
       name: 'Trello API tests',
       use: {
         extraHTTPHeaders: { 'Accept': 'application/json' },
