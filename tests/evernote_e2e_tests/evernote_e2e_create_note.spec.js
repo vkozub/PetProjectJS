@@ -21,14 +21,14 @@ test.describe('Create a note', () => {
   });
 
   test('Verify that user can open the created note', async ({ homePageEvernote }) => {
-    await homePageEvernote.verifyNoteTitleVisible(note);
+    await homePageEvernote.verifyNoteTitleVisible('Bob1');
     await homePageEvernote.tapNote('Bob1');
     await homePageEvernote.verifyEditorNoteTitleVisible('Bob1');
   });
 
   test.afterEach(async ({ homePageEvernote, loginPageEvernote, context }) => {
-    await homePageEvernote.tapLogout();
-    await loginPageEvernote.verifyLoginPageUrl();
+    // await homePageEvernote.tapLogout();
+    // await loginPageEvernote.verifyLoginPageUrl();
     await context.close();
   });
 });

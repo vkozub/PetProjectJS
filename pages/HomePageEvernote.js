@@ -8,6 +8,7 @@ module.exports = class HomePageEvernote {
     get addNewNoteButton() { return this.page.locator("xpath=//div[contains(@id, 'qa-HOME_NOTE_WIDGET_CREATE_NOTE')]"); }
     get noteTitleTextarea() { return this.page.frameLocator('#qa-COMMON_EDITOR_IFRAME').locator("xpath=//textarea[@placeholder='Title']"); }
     get noteTitleLabel() { return this.page.frameLocator('#qa-COMMON_EDITOR_IFRAME').locator("xpath=//textarea[@placeholder='Title']//../div"); }
+    get noteSidebarTitleLabel() { return this.page.locator("xpath=//div[contains(@id, 'qa-NOTES_SIDEBAR_NOTE_TITLE')]/span"); }
     get homeLink() { return this.page.locator("xpath=//a[contains(@id, 'qa-NAV_HOME')]"); }
     get accountButton() { return this.page.locator("xpath=//div[contains(@id, 'qa-NAV_USER')]"); }
     get logoutLink() { return this.page.locator("xpath=//a[contains(@id, 'qa-ACCOUNT_DROPDOWN_LOGOUT')]"); }
@@ -28,9 +29,7 @@ module.exports = class HomePageEvernote {
 
     async verifyYourWorkspacesLabelVisible() { await this.expect(this.yourWorkspacesLabel).toHaveText('Your Workspace', { timeout: 80000 }); }
     async verifyNoteTitleVisible(title) { 
-        const noteTitle = this.page.locator(`xpath=//*[text()='${title}']`);
-        await noteTitle.waitFor({timeout: 10000, state: 'hidden'});
-        await this.expect(noteTitle).toBeHidden();
+        await this.expect(this.noteSidebarTitleLabel).toContainText(title, { timeout: 10000 });
     }
     async verifyEditorNoteTitleVisible(title) { 
         await this.expect(this.noteTitleLabel).toContainText(title, { timeout: 10000 });
