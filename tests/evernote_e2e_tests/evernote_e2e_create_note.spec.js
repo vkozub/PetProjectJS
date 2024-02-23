@@ -13,7 +13,7 @@ test.describe('Create a note', () => {
     await homePageEvernote.verifyYourWorkspacesLabelVisible();
   });
 
-  test('Verify that user can create a note', async ({ homePageEvernote, page }) => {
+  test('Verify that user can create a note', async ({ homePageEvernote }) => {
     await homePageEvernote.tapAddNewNote();
     await homePageEvernote.putNoteTitle(note);
     await homePageEvernote.tapHome();
