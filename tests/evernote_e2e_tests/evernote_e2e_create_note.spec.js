@@ -27,8 +27,8 @@ test.describe('Create a note', () => {
   });
 
   test.afterEach(async ({ homePageEvernote, loginPageEvernote, context }) => {
-    // await homePageEvernote.tapLogout();
-    // await loginPageEvernote.verifyLoginPageUrl();
+    await homePageEvernote.tapLogout();
+    await loginPageEvernote.verifyLoginPageUrl();
     await context.close();
   });
 });
