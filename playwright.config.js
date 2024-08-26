@@ -12,13 +12,13 @@ process.env.TRELLO_STORAGE_API_STATE_PATH = STORAGE_API_STATE;
 module.exports = defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
-  fullyParallel: true,
+  fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 1 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 1 : 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [ process.env.CI ? ['junit', { outputFile: 'test-results/results.xml' }] : ['html'] ],
   // reporter: [ process.env.CI ? ['allure-playwright'] : ['html'] ],
@@ -68,6 +68,28 @@ module.exports = defineConfig({
       testMatch: 'tests/trello_api_tests/**',
       dependencies: ['api tests setup'],
     },
+    {
+      name: 'eHelper setup',
+      testMatch: 'tests/eHelperSetup.js',
+      use: { 
+        ...devices['Desktop Chrome'],
+        config: {
+          baseUrl: 'https://e-pomich.com'
+        }
+      }
+    },
+    {
+      name: 'eHelper WEB application',
+      use: { 
+        ...devices['Desktop Chrome'],
+        config: {
+          baseUrl: 'https://e-pomich.com'
+        },
+        // storageState: '.auth/user0.json'
+       },
+      testMatch: 'tests/eHelper/**',
+      dependencies: ['eHelper setup'],
+    }
 
     // {
     //   name: 'firefox',

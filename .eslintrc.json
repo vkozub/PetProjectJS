@@ -9,7 +9,8 @@
         "ecmaVersion": "latest"
     },
     "globals": {
-        "process": "writable"
+        "process": "writable",
+        "__dirname": true
     },
     "rules": {
         "no-empty-pattern": ["error", { "allowObjectPatternsAsParameters": true }]
