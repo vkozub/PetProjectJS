@@ -31,6 +31,17 @@ test.describe('eHelper Main Navigation', () => {
     await expect.soft(page.getByText('Головна')).toBeVisible();
   });
 
+  test('Verify "Надати послугу" button', async ({}) => {
+    await page.getByText('Надати послугу').click();
+    await expect.soft(page).toHaveURL(/.*\/profile/);
+  });
+
+  test('Verify "Головна" button', async ({}, testInfo) => {
+    await page.goto('/profile');
+    await page.getByText('Головна').click();
+    await expect.soft(page).toHaveURL(testInfo.project.use.config.baseUrl);
+  });
+
   test.afterEach(async ({}) => {
     await page.close();
   });

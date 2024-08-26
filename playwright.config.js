@@ -83,7 +83,7 @@ module.exports = defineConfig({
       use: { 
         ...devices['Desktop Chrome'],
         config: {
-          baseUrl: 'https://e-pomich.com'
+          baseUrl: 'https://www.e-pomich.com'
         },
         // storageState: '.auth/user0.json'
        },
