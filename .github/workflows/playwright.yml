@@ -8,9 +8,9 @@ on:
     inputs:
       workers:
         description: 'Amount of workers'
-        type: choice
         required: true
         default: '2'
+        type: choice
         options:
           - 1
           - 2
