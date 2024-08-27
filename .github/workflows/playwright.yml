@@ -28,6 +28,8 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Check workers input
+      run: echo "Amount of workers are ${{ github.event.inputs.workers }}"
     - name: Run Playwright tests
       run: npx playwright test --project="eHelper WEB application" --workers=${{ github.event.inputs.workers }}
       env:
