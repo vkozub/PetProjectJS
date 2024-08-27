@@ -28,8 +28,10 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Check workers input
-      run: echo "Amount of workers are ${{ github.event.inputs.workers }}"
+    - name: Set workers input
+      run: echo "WORKERS=${{ github.event_name == 'workflow_dispatch' && github.event.inputs.workers || env.WORKERS }}" >> $GITHUB_ENV
+    - name: Check workers env
+      run: echo "Amount of workers are ${{ env.WORKERS }}"
     - name: Run Playwright tests
       run: npx playwright test --project="eHelper WEB application" --workers=${{ github.event.inputs.workers }}
       env:
@@ -37,6 +39,7 @@ jobs:
         TRELLO_PASSWORD:  ${{ secrets.PASSWORD }}
         TRELLO_API_KEY:   ${{ secrets.API_KEY }}
         TRELLO_API_TOKEN: ${{ secrets.API_TOKEN }}
+        WORKERS: '3'
     - uses: actions/upload-artifact@v4
       if: always()
       with:
