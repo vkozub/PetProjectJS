@@ -4,6 +4,17 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      workers:
+        description: 'Amount of workers'
+        type: choice
+        required: true
+        default: '2'
+        options:
+          - 1
+          - 2
+          - 3
 jobs:
   test:
     timeout-minutes: 60
