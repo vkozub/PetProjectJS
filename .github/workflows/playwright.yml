@@ -29,7 +29,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: npx playwright test '--project=eHelper WEB application' --workers=${{ github.event.inputs.workers }}
+      run: npx playwright test --project="eHelper WEB application" --workers=${{ github.event.inputs.workers }}
       env:
         TRELLO_USERNAME:  ${{ secrets.USERNAME }}
         TRELLO_PASSWORD:  ${{ secrets.PASSWORD }}
