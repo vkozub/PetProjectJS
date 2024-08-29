@@ -1,7 +1,7 @@
 name: Playwright Tests
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
@@ -15,6 +15,9 @@ on:
           - 1
           - 2
           - 3
+env:
+  GLOBAL_WORKERS: '3'
+
 jobs:
   test:
     timeout-minutes: 60
@@ -29,9 +32,11 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Set workers input
-      run: echo "WORKERS=${{ github.event_name == 'workflow_dispatch' && github.event.inputs.workers || '3' }}" >> $GITHUB_ENV
+      run: echo "WORKERS=${{ github.event_name == 'workflow_dispatch' && github.event.inputs.workers || env.GLOBAL_WORKERS }}" >> $GITHUB_ENV
     - name: Check workers env
       run: echo "Amount of workers are ${{ env.WORKERS }}"
+    - name: Global Workers
+      run: echo "Global workers are ${{ env.GLOBAL_WORKERS }}""
     - name: Run Playwright tests
       run: npx playwright test --project="eHelper WEB application" --workers=${{ env.WORKERS }}
       env:
