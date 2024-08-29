@@ -1,7 +1,7 @@
 name: Playwright Tests
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
@@ -35,8 +35,6 @@ jobs:
       run: echo "WORKERS=${{ github.event_name == 'workflow_dispatch' && github.event.inputs.workers || env.DEFAULT_WORKERS }}" >> $GITHUB_ENV
     - name: Check workers env
       run: echo "Amount of workers are ${{ env.WORKERS }}"
-    - name: Global Workers
-      run: echo "Global workers are ${{ env.DEFAULT_WORKERS }}"
     - name: Run Playwright tests
       run: npx playwright test --project="eHelper WEB application" --workers=${{ env.WORKERS }}
       env:
