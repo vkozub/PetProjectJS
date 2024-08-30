@@ -22,6 +22,8 @@ exports.PostGenerator = class PostGenerator {
         const response = await this.page.request.post(this.testInfo.project.use.config.baseUrl + '/api/users/post', {
             data: this.payload
         });
+        const responseJson = await response.json();
+        this.payload.id = responseJson?.savedPost?._id;
 
         return this.payload;
     }
